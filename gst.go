@@ -5,6 +5,7 @@ import (
   "os"
   "os/exec"
   "path/filepath"
+  "strings"
   "errors"
   "github.com/codegangsta/cli"
   "github.com/daviddengcn/go-colortext"
@@ -39,7 +40,24 @@ func main() {
         ct.ChangeColor(ct.Red, false, ct.None, false)
         fmt.Println(repo.Path)
         ct.ResetColor()
-        fmt.Println(status)
+
+        changes := strings.Split(status, "\n")
+        for _, change := range changes[:len(changes)-1] {
+          staged := change[:1]
+          unstaged := change[1:2]
+          filename := change[3:]
+
+          if staged == "?" {
+            ct.ChangeColor(ct.Red, false, ct.None, false)
+          } else {
+            ct.ChangeColor(ct.Green, false, ct.None, false)
+          }
+          fmt.Print(staged)
+          ct.ChangeColor(ct.Red, false, ct.None, false)
+          fmt.Print(unstaged)
+          ct.ResetColor()
+          fmt.Println("", filename)
+        }
       }
     }
   }
