@@ -72,9 +72,7 @@ func gitStatus(targetPath string) (status string, err error) {
     return "", err
   }
 
-  ct.ChangeColor(ct.Blue, true, ct.None, false)
   out, _ := exec.Command("git", "status", "-s").Output()
-  ct.ResetColor()
   if len(out) == 0 {
     return "", errors.New("No status changed")
   }
