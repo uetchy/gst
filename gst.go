@@ -37,7 +37,7 @@ func main() {
     for repo := range repos {
       status, err := gitStatus(repo.Path)
       if err == nil {
-        ct.ChangeColor(ct.Red, false, ct.None, false)
+        ct.ChangeColor(ct.Cyan, false, ct.None, false)
         fmt.Println(repo.Path)
         ct.ResetColor()
 
@@ -58,6 +58,8 @@ func main() {
           ct.ResetColor()
           fmt.Println("", filename)
         }
+
+        fmt.Println()
       }
     }
   }
