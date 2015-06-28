@@ -36,35 +36,42 @@ func main() {
 
     for repo := range repos {
       status, err := gitStatus(repo.Path)
-      if err == nil {
-        ct.ChangeColor(ct.Cyan, false, ct.None, false)
-        fmt.Println(repo.Path)
-        ct.ResetColor()
-
-        changes := strings.Split(status, "\n")
-        for _, change := range changes[:len(changes)-1] {
-          staged := change[:1]
-          unstaged := change[1:2]
-          filename := change[3:]
-
-          if staged == "?" {
-            ct.ChangeColor(ct.Red, false, ct.None, false)
-          } else {
-            ct.ChangeColor(ct.Green, false, ct.None, false)
-          }
-          fmt.Print(staged)
-          ct.ChangeColor(ct.Red, false, ct.None, false)
-          fmt.Print(unstaged)
-          ct.ResetColor()
-          fmt.Println("", filename)
-        }
-
-        fmt.Println()
+      if err != nil {
+        continue
       }
+
+      printlnWithColor(repo.Path, ct.Cyan)
+
+      changes := strings.Split(status, "\n")
+      for _, change := range changes[:len(changes)-1] {
+        staged := change[:1]
+        unstaged := change[1:2]
+        filename := change[3:]
+
+        if staged == "?" {
+          printWithColor(staged, ct.Red)
+        } else {
+          printWithColor(staged, ct.Green)
+        }
+        printWithColor(unstaged, ct.Red)
+        fmt.Println("", filename)
+      }
+
+      fmt.Println()
     }
   }
 
   app.Run(os.Args)
+}
+
+func printWithColor(str string, color ct.Color) {
+  ct.ChangeColor(color, false, ct.None, false)
+  fmt.Print(str)
+  ct.ResetColor()
+}
+
+func printlnWithColor(str string, color ct.Color) {
+  printWithColor(str + "\n", color)
 }
 
 func gitStatus(targetPath string) (status string, err error) {
