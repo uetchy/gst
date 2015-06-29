@@ -1,0 +1,43 @@
+box: tcnksm/gox
+build:
+  steps:
+    # Sets the go workspace and places you package
+    # at the right place in the workspace tree
+    - setup-go-workspace
+
+    # golint
+    - wercker/golint
+
+    # Gets the dependencies
+    - script:
+        name: go get
+        code: |
+          go get
+
+    # Build the project
+    - tcnksm/gox:
+        os: "darwin linux windows"
+        arch: "386 amd64"
+
+    # Archive executable files
+    - tcnksm/zip:
+        input: $WERCKER_OUTPUT_DIR/pkg
+        output: $WERCKER_OUTPUT_DIR/dist
+
+deploy:
+  steps:
+    - tcnksm/ghr:
+        token: $GITHUB_TOKEN
+        input: dist
+        version: v1.0.0         # Relase tag default is `pre-release`
+        pre_release: false       # Relase as pre-release default is false
+        replace: true           # Replace release if it exists
+    # # Create new github release
+    # - wercker/github-create-release:
+    #     token: $GITHUB_TOKEN
+    #     tag: 0.1.0
+
+    # # Upload binaries
+    # - wercker/github-upload-asset:
+    #     token: $GITHUB_TOKEN
+    #     file: dist/*
