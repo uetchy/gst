@@ -1,5 +1,7 @@
 # gst
 
+[![wercker status](https://app.wercker.com/status/2715e17aa6fc187dfa5031b62df5c2e5/s "wercker status")](https://app.wercker.com/project/bykey/2715e17aa6fc187dfa5031b62df5c2e5)
+
 ## Install
 ```console
 ❯ go get -d github.com/uetchy/gst
