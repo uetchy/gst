@@ -12,6 +12,7 @@ import (
 )
 
 const Version string = "0.1.0"
+
 type Repository struct {
   Type string
   Path string
@@ -21,47 +22,62 @@ func main() {
   app := cli.NewApp()
   app.Name = "gst"
   app.Version = Version
-  app.Usage = ""
+  app.Usage = "gst"
   app.Author = "Yasuaki Uechi"
   app.Email = "uetchy@randompaper.co"
-  app.Action = func(c *cli.Context) {
-    out, err := exec.Command("ghq", "root").Output()
-    if err != nil {
-      fmt.Println("You must setup ghq first")
-      os.Exit(1)
-    }
-
-    ghqPath := string(out)[:len(out)-1]
-    repos := searchForRepos(ghqPath)
-
-    for repo := range repos {
-      status, err := gitStatus(repo.Path)
-      if err != nil {
-        continue
-      }
-
-      printlnWithColor(repo.Path, ct.Cyan)
-
-      changes := strings.Split(status, "\n")
-      for _, change := range changes[:len(changes)-1] {
-        staged := change[:1]
-        unstaged := change[1:2]
-        filename := change[3:]
-
-        if staged == "?" {
-          printWithColor(staged, ct.Red)
-        } else {
-          printWithColor(staged, ct.Green)
-        }
-        printWithColor(unstaged, ct.Red)
-        fmt.Println("", filename)
-      }
-
-      fmt.Println()
-    }
+  app.HideHelp = true
+  app.Flags = []cli.Flag {
+    cli.BoolFlag{
+      Name: "short, s",
+      Usage: "shorten result for pipeline processing",
+    },
   }
+  app.Action = commandList
 
   app.Run(os.Args)
+}
+
+func commandList(c *cli.Context) {
+  out, err := exec.Command("ghq", "root").Output()
+  if err != nil {
+    fmt.Println("You must setup ghq first")
+    os.Exit(1)
+  }
+
+  shortExpression := c.Bool("short")
+  ghqPath := string(out)[:len(out)-1]
+  repos := searchForRepos(ghqPath)
+
+  for repo := range repos {
+    status, err := gitStatus(repo.Path)
+    if err != nil {
+      continue
+    }
+
+    if shortExpression {
+      fmt.Println(repo.Path)
+      continue
+    }
+
+    printlnWithColor(repo.Path, ct.Cyan)
+
+    changes := strings.Split(status, "\n")
+    for _, change := range changes[:len(changes)-1] {
+      staged := change[:1]
+      unstaged := change[1:2]
+      filename := change[3:]
+
+      if staged == "?" {
+        printWithColor(staged, ct.Red)
+      } else {
+        printWithColor(staged, ct.Green)
+      }
+      printWithColor(unstaged, ct.Red)
+      fmt.Println("", filename)
+    }
+
+    fmt.Println()
+  }
 }
 
 func printWithColor(str string, color ct.Color) {
