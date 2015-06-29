@@ -26,18 +26,28 @@ build:
 
 deploy:
   steps:
-    - tcnksm/ghr:
+    # Create new release
+    - wercker/github-create-release:
         token: $GITHUB_TOKEN
-        input: dist
-        version: v1.0.0         # Relase tag default is `pre-release`
-        pre_release: false       # Relase as pre-release default is false
-        replace: true           # Replace release if it exists
-    # # Create new github release
-    # - wercker/github-create-release:
-    #     token: $GITHUB_TOKEN
-    #     tag: 0.1.0
-
-    # # Upload binaries
-    # - wercker/github-upload-asset:
-    #     token: $GITHUB_TOKEN
-    #     file: dist/*
+        tag: v1.0.0
+    - wercker/github-upload-asset:
+        token: $GITHUB_TOKEN
+        file: dist/SHASUMS
+    - wercker/github-upload-asset:
+        token: $GITHUB_TOKEN
+        file: dist/linux_386.zip
+    - wercker/github-upload-asset:
+        token: $GITHUB_TOKEN
+        file: dist/linux_amd64.zip
+    - wercker/github-upload-asset:
+        token: $GITHUB_TOKEN
+        file: dist/darwin_386.zip
+    - wercker/github-upload-asset:
+        token: $GITHUB_TOKEN
+        file: dist/darwin_amd64.zip
+    - wercker/github-upload-asset:
+        token: $GITHUB_TOKEN
+        file: dist/windows_386.zip
+    - wercker/github-upload-asset:
+        token: $GITHUB_TOKEN
+        file: dist/windows_amd64.zip
