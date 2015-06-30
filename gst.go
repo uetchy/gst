@@ -11,7 +11,7 @@ import (
   "github.com/daviddengcn/go-colortext"
 )
 
-const Version string = "0.1.0"
+const Version string = "1.0.0"
 
 type Repository struct {
   Type string
@@ -33,19 +33,71 @@ func main() {
     },
   }
   app.Action = commandList
+  app.Commands = []cli.Command {
+    {
+      Name: "new",
+      Action: commandNew,
+    },
+  }
 
   app.Run(os.Args)
 }
 
+func commandNew(c *cli.Context) {
+  ghqPath, err := getGhqPath()
+  if err != nil {
+    fmt.Println("You must setup ghq first")
+    os.Exit(1)
+  }
+
+  githubUser, err := getGithubUser()
+  if err != nil {
+    fmt.Println("You must set github.user first")
+    os.Exit(1)
+  }
+
+  newPath := filepath.Join(ghqPath, "github.com", githubUser, c.Args().Get(0))
+
+  err = exec.Command("mkdir", "-p", newPath).Run()
+  if err != nil {
+    fmt.Println(err)
+    os.Exit(1)
+  }
+
+  if err = os.Chdir(newPath); err != nil {
+    fmt.Println(err)
+    os.Exit(1)
+  }
+
+  if err = exec.Command("git", "init").Run(); err != nil {
+    fmt.Println(err)
+    os.Exit(1)
+  }
+
+  if err = exec.Command("touch", "README.md", "CHANGELOG.md", "LICENSE").Run(); err != nil {
+    fmt.Println(err)
+    os.Exit(1)
+  }
+
+  fmt.Println(newPath)
+}
+
+func commandRemove(c *cli.Context) {
+  ghqPath, err := getGhqPath()
+  if err != nil {
+    fmt.Println("You must setup ghq first")
+    os.Exit(1)
+  }
+}
+
 func commandList(c *cli.Context) {
-  out, err := exec.Command("ghq", "root").Output()
+  ghqPath, err := getGhqPath()
   if err != nil {
     fmt.Println("You must setup ghq first")
     os.Exit(1)
   }
 
   shortExpression := c.Bool("short")
-  ghqPath := string(out)[:len(out)-1]
   repos := searchForRepos(ghqPath)
 
   for repo := range repos {
@@ -78,6 +130,22 @@ func commandList(c *cli.Context) {
 
     fmt.Println()
   }
+}
+
+func getGhqPath() (string, error) {
+  out, err := exec.Command("ghq", "root").Output()
+  if err != nil {
+    return "", err
+  }
+  return string(out)[:len(out)-1], nil
+}
+
+func getGithubUser() (string, error) {
+  out, err := exec.Command("git", "config", "--get", "github.user").Output()
+  if err != nil {
+    return "", err
+  }
+  return string(out)[:len(out)-1], nil
 }
 
 func printWithColor(str string, color ct.Color) {

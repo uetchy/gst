@@ -1,5 +1,7 @@
 # ChangeLog
 
+## [Unreleased] - Unreleased
+
 ## [1.0.0] - 2015-06-30
 ### Added
 - list changed repositories with `gst`
