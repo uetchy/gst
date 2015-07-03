@@ -15,6 +15,8 @@ on OS X:
 ```
 
 ## Usage
+### list
+
 ```console
 ❯ gst
 /Users/uetchy/repos/src/github.com/uetchy/ferret
@@ -45,4 +47,31 @@ You can use `peco` for pipeline processing as:
 
 ```
 ❯ cd $(gst --short | peco)
+```
+
+### new
+
+```console
+❯ gst new awesome-project
+/Users/uetchy/repos/src/github.com/uetchy/awesome-project
+```
+
+with `cd`, You can jump to created project:
+
+```console
+❯ cd $(gst new awesome-project)
+```
+
+or with declare function:
+
+```zsh
+newrepo() {
+  cd $(gst new ${1})
+}
+```
+
+### rm
+
+```console
+❯ gst rm awesome-project
 ```
