@@ -56,6 +56,8 @@ Before start using 'new' and 'rm' command, You __must__ set 'github.user' to .gi
 ```console
 ❯ gst new awesome-project
 /Users/uetchy/repos/src/github.com/uetchy/awesome-project
+❯ gst new epic-team/awesome-project
+/Users/uetchy/repos/src/github.com/epic-team/awesome-project
 ```
 
 with `cd`, You can jump to created project:
