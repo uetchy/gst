@@ -51,6 +51,8 @@ You can use `peco` for pipeline processing as:
 
 ### new
 
+Before start using 'new' and 'rm' command, You __must__ set 'github.user' to .gitconfig with `git config --global github.user <user>`.
+
 ```console
 ❯ gst new awesome-project
 /Users/uetchy/repos/src/github.com/uetchy/awesome-project
