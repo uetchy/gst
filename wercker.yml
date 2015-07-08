@@ -1,53 +1,35 @@
-box: tcnksm/gox
+box: motemen/golang-goxc
 build:
   steps:
-    # Sets the go workspace and places you package
-    # at the right place in the workspace tree
     - setup-go-workspace
-
-    # golint
     - wercker/golint
-
-    # Gets the dependencies
     - script:
-        name: go get
+        name: get dependencies
         code: |
           go get
-
-    # Build the project
-    - tcnksm/gox:
-        os: "darwin linux windows"
-        arch: "386 amd64"
-
-    # Archive executable files
-    - tcnksm/zip:
-        input: $WERCKER_OUTPUT_DIR/pkg
-        output: $WERCKER_OUTPUT_DIR/dist
+    - script:
+        name: goxc build / archive
+        code: |
+          goxc -tasks='xc archive' -bc 'linux,!arm windows darwin' -d $WERCKER_OUTPUT_DIR/ -build-ldflags "-X main.Version \"$(git describe --tags --always --dirty)\""
+    - script:
+        name: output release tag
+        code: |
+          git describe --tags --exact --match 'v*' > $WERCKER_OUTPUT_DIR/.release_tag || warn "No release tag"
+          info $WERCKER_OUTPUT_DIR/.release_tag
 
 deploy:
   steps:
-    # Create new release
-    - wercker/github-create-release:
+    - script:
+        name: restore variables
+        code: |
+          export RELEASE_TAG=$(cat .release_tag)
+    - tcnksm/ghr:
+       token: $GITHUB_TOKEN
+       input: snapshot
+       version: $RELEASE_TAG
+       replace: true
+    - uetchy/solver:
         token: $GITHUB_TOKEN
         tag: v1.0.0
-    - wercker/github-upload-asset:
-        token: $GITHUB_TOKEN
-        file: dist/SHASUMS
-    - wercker/github-upload-asset:
-        token: $GITHUB_TOKEN
-        file: dist/linux_386.zip
-    - wercker/github-upload-asset:
-        token: $GITHUB_TOKEN
-        file: dist/linux_amd64.zip
-    - wercker/github-upload-asset:
-        token: $GITHUB_TOKEN
-        file: dist/darwin_386.zip
-    - wercker/github-upload-asset:
-        token: $GITHUB_TOKEN
-        file: dist/darwin_amd64.zip
-    - wercker/github-upload-asset:
-        token: $GITHUB_TOKEN
-        file: dist/windows_386.zip
-    - wercker/github-upload-asset:
-        token: $GITHUB_TOKEN
-        file: dist/windows_amd64.zip
+        file64: dist/darwin_amd64.zip
+        file32: dist/darwin_386.zip
