@@ -24,12 +24,12 @@ deploy:
         code: |
           export RELEASE_TAG=$(cat .release_tag)
     - tcnksm/ghr:
-       token: $GITHUB_TOKEN
-       input: snapshot
-       version: $RELEASE_TAG
-       replace: true
-    - uetchy/solver:
         token: $GITHUB_TOKEN
-        tag: v1.0.0
-        file64: dist/darwin_amd64.zip
-        file32: dist/darwin_386.zip
+        input: snapshot
+        version: $RELEASE_TAG
+        replace: true
+    - uetchy/homebrew:
+        token: $GITHUB_TOKEN
+        tag: $RELEASE_TAG
+        file64: snapshot/gst_darwin_amd64.zip
+        file32: snapshot/gst_darwin_386.zip
