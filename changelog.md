@@ -1,5 +1,16 @@
 # ChangeLog
 
+## [1.2.0] - 2015-08-08
+### Added
+- List repositories sorted by mod time
+
+### Improved
+- Ask when remove repositories
+
+### Fixed
+- Fix issue when '->' appears
+- Recognize hostname in 'new' and 'remove'
+
 ## [1.1.0] - 2015-08-08
 ### Added
 - New command: 'new', 'remove', 'list'
