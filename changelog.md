@@ -1,6 +1,6 @@
 # ChangeLog
 
-## [Unreleased] - Unreleased
+## [1.1.0] - 2015-08-08
 ### Added
 - New command: 'new', 'remove', 'list'
 

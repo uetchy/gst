@@ -10,11 +10,11 @@ build:
     - script:
         name: goxc build / archive
         code: |
-          goxc -tasks='xc archive' -bc 'linux,!arm windows darwin' -d $WERCKER_OUTPUT_DIR/ -build-ldflags "-X main.Version \"$(git describe --tags --always --dirty)\""
+          goxc -tasks='xc archive' -bc 'linux,!arm windows darwin' -d $WERCKER_OUTPUT_DIR/ -build-ldflags "-X main.Version \"$(git describe --tags --always)\""
     - script:
         name: output release tag
         code: |
-          git describe --tags --exact --match 'v*' > $WERCKER_OUTPUT_DIR/.release_tag || warn "No release tag"
+          git describe --tags --exact --match 'v*' > $WERCKER_OUTPUT_DIR/.release_tag || warn "No releases found"
           info $WERCKER_OUTPUT_DIR/.release_tag
 
 deploy:
