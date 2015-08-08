@@ -7,11 +7,6 @@ import (
 	"strings"
 )
 
-type Repository struct {
-	Type string
-	Path string
-}
-
 func gitStatus(targetPath string) ([]string, error) {
 	if err := os.Chdir(targetPath); err != nil {
 		return nil, err

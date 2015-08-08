@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"github.com/codegangsta/cli"
 	"github.com/daviddengcn/go-colortext"
+	"github.com/dustin/go-humanize"
 	"os"
+	"sort"
 )
 
 var flagsOfList = []cli.Flag{
@@ -28,9 +30,18 @@ func doList(c *cli.Context) {
 	}
 
 	shortExpression := c.Bool("short")
-	repos := searchForRepos(ghqPath)
 
-	for repo := range repos {
+	reposChannel := searchForRepos(ghqPath)
+
+	// Sort by time
+	repos := []Repository{}
+	for repo := range reposChannel {
+		repos = append(repos, repo)
+	}
+	sort.Sort(RepositoriesByModTime{repos})
+
+	// Listing repos
+	for _, repo := range repos {
 		changes, err := gitStatus(repo.Path)
 		if err != nil {
 			continue
@@ -42,6 +53,7 @@ func doList(c *cli.Context) {
 		}
 
 		printlnWithColor(repo.Path, ct.Cyan)
+		printlnWithColor("-- "+humanize.Time(repo.ModTime), ct.Blue)
 
 		for _, change := range changes[:len(changes)-1] {
 			staged := change[:1]

@@ -1,10 +1,37 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
+	"time"
 )
+
+type Repository struct {
+	Type    string
+	Path    string
+	ModTime time.Time
+}
+
+type Repositories []Repository
+
+func (r Repositories) Len() int {
+	return len(r)
+}
+
+func (r Repositories) Swap(i, j int) {
+	r[i], r[j] = r[j], r[i]
+}
+
+type RepositoriesByModTime struct {
+	Repositories
+}
+
+func (bmt RepositoriesByModTime) Less(i, j int) bool {
+	return bmt.Repositories[i].ModTime.Before(bmt.Repositories[j].ModTime)
+}
 
 func getGhqPath() (string, error) {
 	out, err := exec.Command("ghq", "root").Output()
@@ -29,7 +56,11 @@ func searchForRepos(rootPath string) <-chan Repository {
 				return nil
 			}
 
-			repository := Repository{"git", path}
+			repository := Repository{
+				Type:    "git",
+				Path:    path,
+				ModTime: info.ModTime(),
+			}
 			repos <- repository
 
 			return filepath.SkipDir
@@ -38,4 +69,34 @@ func searchForRepos(rootPath string) <-chan Repository {
 	}()
 
 	return repos
+}
+
+func compileTargetPath(query string) string {
+	ghqPath, err := getGhqPath()
+	if err != nil {
+		fmt.Println("You must setup 'ghq' command")
+		os.Exit(1)
+	}
+
+	re, _ := regexp.Compile("^(?:(?:(.+?)/)?(.+?)/)?(.+)$")
+	res := re.FindStringSubmatch(query)
+
+	targetHost := res[1]
+	targetUser := res[2]
+	targetPath := res[3]
+
+	if res[1] == "" {
+		targetHost = "github.com"
+	}
+
+	if res[2] == "" {
+		targetUser, err = getGithubUser()
+		if err != nil {
+			fmt.Println("You must set github.user first")
+			fmt.Println("> git config --global github.user <name>")
+			os.Exit(1)
+		}
+	}
+
+	return filepath.Join(ghqPath, targetHost, targetUser, targetPath)
 }

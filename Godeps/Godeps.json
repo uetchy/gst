@@ -3,6 +3,11 @@
 	"GoVersion": "go1.4.2",
 	"Deps": [
 		{
+			"ImportPath": "github.com/Songmu/prompter",
+			"Comment": "0.1.0-4-gf49666b",
+			"Rev": "f49666b0047d12850875d771340e1d862d9e7a0c"
+		},
+		{
 			"ImportPath": "github.com/codegangsta/cli",
 			"Comment": "1.2.0-137-gbca61c4",
 			"Rev": "bca61c476e3c752594983e4c9bcd5f62fb09f157"
@@ -10,6 +15,18 @@
 		{
 			"ImportPath": "github.com/daviddengcn/go-colortext",
 			"Rev": "13eaeb896f5985a1ab74ddea58707a73d875ba57"
+		},
+		{
+			"ImportPath": "github.com/dustin/go-humanize",
+			"Rev": "c128122e0b9b93799aef8181a537e5d8fd7081d6"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-isatty",
+			"Rev": "ae0b1f8f8004be68d791a576e3d8e7648ab41449"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/ssh/terminal",
+			"Rev": "1e856cbfdf9bc25eefca75f83f25d55e35ae72e0"
 		}
 	]
 }
