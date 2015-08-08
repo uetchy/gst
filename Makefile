@@ -1,8 +1,9 @@
 setup:
-	godep save
+	godep get
 
 run:
-	godep go run *.go
+	godep go install
+	gst
 
 test:
 	godep go test
