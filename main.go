@@ -5,6 +5,8 @@ import (
 	"os"
 )
 
+const Version string = "HEAD"
+
 var Commands = []cli.Command{
 	commandList,
 	commandNew,
