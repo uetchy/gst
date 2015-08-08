@@ -56,10 +56,10 @@ func doNew(c *cli.Context) {
 		os.Exit(1)
 	}
 
-	// if err = exec.Command("touch", "README.md", "CHANGELOG.md", "LICENSE").Run(); err != nil {
-	//   fmt.Println(err)
-	//   os.Exit(1)
-	// }
+	if err = exec.Command("touch", "README.md", "CHANGELOG.md").Run(); err != nil {
+	  fmt.Println(err)
+	  os.Exit(1)
+	}
 
 	fmt.Println(targetPath)
 }
