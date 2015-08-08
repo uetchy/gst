@@ -17,12 +17,12 @@ func gitStatus(targetPath string) ([]string, error) {
 		return nil, err
 	}
 
-	out, _ := exec.Command("git", "status", "--porcelain", "-z").Output()
+	out, _ := exec.Command("git", "status", "--porcelain").Output()
 	if len(out) == 0 {
 		return nil, errors.New("No status changed")
 	}
 
-	statuses := strings.Split(string(out), "\x00")
+	statuses := strings.Split(string(out), "\n")
 
 	return statuses, nil
 }
