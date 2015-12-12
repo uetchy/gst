@@ -84,7 +84,7 @@ var scpLikeURLPattern = regexp.MustCompile("^([^@]+@)?([^:]+):/?(.+)$")
 
 func formatURL(ref string) (*url.URL, error) {
 	if !hasSchemePattern.MatchString(ref) && scpLikeURLPattern.MatchString(ref) {
-		matched := scpLikeUrlPattern.FindStringSubmatch(ref)
+		matched := scpLikeURLPattern.FindStringSubmatch(ref)
 		user := matched[1]
 		host := matched[2]
 		path := matched[3]
