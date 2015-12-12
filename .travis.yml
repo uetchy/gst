@@ -1,12 +1,25 @@
 language: go
 go:
-  - 1.4
-  - tip
-env:
-  - "PATH=/home/travis/gopath/bin:$PATH"
-before_install:
+  - 1.5
+install:
   - go get github.com/mitchellh/gox
   - go get github.com/tcnksm/ghr
+  - go get github.com/golang/lint/golint
+script:
+  - golint
 after_success:
   - gox -output "dist/{.OS}_{.Arch}_{.Dir}"
   - ghr --username uetchy --token $GITHUB_TOKEN --replace --prerelease --debug pre-release dist/
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file:
+    - dist/gst_darwin_386
+    - dist/gst_darwin_amd64
+    - dist/gst_linux_386
+    - dist/gst_linux_amd64
+    - dist/gst_windows_386
+    - dist/gst_windows_amd64
+  skip_cleanup: true
+  on:
+    tags: true
