@@ -11,6 +11,7 @@ var Commands = []cli.Command{
 	commandList,
 	commandNew,
 	commandRemove,
+	commandDoctor,
 }
 
 func main() {

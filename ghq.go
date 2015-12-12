@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"regexp"
 	"time"
+	"net/url"
+	"strings"
 )
 
 type Repository struct {
@@ -71,6 +73,45 @@ func searchForRepos(rootPath string) <-chan Repository {
 	return repos
 }
 
+var hasSchemePattern = regexp.MustCompile("^[^:]+://")
+var scpLikeUrlPattern = regexp.MustCompile("^([^@]+@)?([^:]+):/?(.+)$")
+
+func formatURL(ref string) (*url.URL, error) {
+	if !hasSchemePattern.MatchString(ref) && scpLikeUrlPattern.MatchString(ref) {
+		matched := scpLikeUrlPattern.FindStringSubmatch(ref)
+		user := matched[1]
+		host := matched[2]
+		path := matched[3]
+
+		ref = fmt.Sprintf("ssh://%s%s/%s", user, host, path)
+	}
+
+	url, err := url.Parse(ref)
+	if err != nil {
+		return url, err
+	}
+
+	if !url.IsAbs() {
+		if !strings.Contains(url.Path, "/") {
+			url.Path = url.Path + "/" + url.Path
+		}
+		url.Scheme = "https"
+		url.Host = "github.com"
+		if url.Path[0] != '/' {
+			url.Path = "/" + url.Path
+		}
+	}
+
+	return url, nil
+}
+
+func compileTargetPathFromURL(query string) string {
+	source, _ := formatURL(query)
+	encodedPath := strings.TrimSuffix(source.Path, ".git")
+	ghqPath := filepath.Join(source.Host, encodedPath)
+	return ghqPath
+}
+
 func compileTargetPath(query string) string {
 	ghqPath, err := getGhqPath()
 	if err != nil {
@@ -90,7 +131,7 @@ func compileTargetPath(query string) string {
 	}
 
 	if res[2] == "" {
-		targetUser, err = getGithubUser()
+		targetUser, err = GitConfigGet("global", "github.user")
 		if err != nil {
 			fmt.Println("You must set github.user first")
 			fmt.Println("> git config --global github.user <name>")
