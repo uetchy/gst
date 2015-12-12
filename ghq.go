@@ -11,26 +11,32 @@ import (
 	"time"
 )
 
+// Repository represents git repository
 type Repository struct {
 	Type    string
 	Path    string
 	ModTime time.Time
 }
 
+// Repositories contains array of Repository
 type Repositories []Repository
 
+// Len return number of repositories
 func (r Repositories) Len() int {
 	return len(r)
 }
 
+// Swap repository
 func (r Repositories) Swap(i, j int) {
 	r[i], r[j] = r[j], r[i]
 }
 
+// RepositoriesByModTime is wrapper of sort algorithm for order by mod time
 type RepositoriesByModTime struct {
 	Repositories
 }
 
+// Less sort array by mod time
 func (bmt RepositoriesByModTime) Less(i, j int) bool {
 	return bmt.Repositories[i].ModTime.Before(bmt.Repositories[j].ModTime)
 }
@@ -74,10 +80,10 @@ func searchForRepos(rootPath string) <-chan Repository {
 }
 
 var hasSchemePattern = regexp.MustCompile("^[^:]+://")
-var scpLikeUrlPattern = regexp.MustCompile("^([^@]+@)?([^:]+):/?(.+)$")
+var scpLikeURLPattern = regexp.MustCompile("^([^@]+@)?([^:]+):/?(.+)$")
 
 func formatURL(ref string) (*url.URL, error) {
-	if !hasSchemePattern.MatchString(ref) && scpLikeUrlPattern.MatchString(ref) {
+	if !hasSchemePattern.MatchString(ref) && scpLikeURLPattern.MatchString(ref) {
 		matched := scpLikeUrlPattern.FindStringSubmatch(ref)
 		user := matched[1]
 		host := matched[2]

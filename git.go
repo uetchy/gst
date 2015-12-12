@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+// GitConfig represents git config file
 type GitConfig struct {
 	UserName        string `gitconfig:"user.name"`
 	UserEmail       string `gitconfig:"user.email"`
@@ -17,6 +18,7 @@ type GitConfig struct {
 	RemoteOriginURL string `gitconfig:"remote.origin.url"`
 }
 
+// GitConfigGet returns git config value by key
 func GitConfigGet(targetPath string, key string) (string, error) {
 	var configFile gitconfig.Config
 	switch targetPath {
@@ -36,11 +38,13 @@ func GitConfigGet(targetPath string, key string) (string, error) {
 	return result, nil
 }
 
+// GitConfigSet will set git config value by key
 func GitConfigSet(targetPath string, key string, value string) (string, error) {
 	out, err := exec.Command("git", "config", "--file", targetPath, "--set", key, value).Output()
 	return string(out), err
 }
 
+// GitStatus returns git status of certain repository
 func GitStatus(targetPath string) ([]string, error) {
 	if err := os.Chdir(targetPath); err != nil {
 		return nil, err

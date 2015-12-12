@@ -5,8 +5,10 @@ import (
 	"os"
 )
 
+// Version of this program
 const Version string = "HEAD"
 
+// Commands are list of available commands
 var Commands = []cli.Command{
 	commandList,
 	commandNew,
