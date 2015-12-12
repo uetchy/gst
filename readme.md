@@ -1,4 +1,4 @@
-# gst: ghq supervising toolbox
+# gst: ghq support toolbox
 
 [![wercker status](https://app.wercker.com/status/2715e17aa6fc187dfa5031b62df5c2e5/s "wercker status")](https://app.wercker.com/project/bykey/2715e17aa6fc187dfa5031b62df5c2e5)
 
@@ -15,7 +15,9 @@ with Homebrew:
 ```
 
 ## Usage
-### list
+### `gst list` or `gst`
+
+List all of repositories changed git status
 
 ```console
 ❯ gst
@@ -52,6 +54,8 @@ You can also use `peco` for pipeline processing as:
 ```
 
 ### new
+
+Create git repository.
 
 Before start using 'new' and 'rm' command, You __must__ set 'github.user' to .gitconfig with `git config --global github.user <user>`.
 
