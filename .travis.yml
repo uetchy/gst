@@ -1,6 +1,7 @@
 language: go
 go:
-  - 1.5
+  - 1.4
+  - tip
 install:
   - go get github.com/mitchellh/gox
   - go get github.com/tcnksm/ghr
@@ -8,8 +9,10 @@ install:
 script:
   - golint
 after_success:
-  - gox -output "dist/{.OS}_{.Arch}_{.Dir}"
+  # Pre-release compiled blob
+  - gox -output "dist/{.OS}_{.Arch}_{.Dir}" -build-ldflags "-X main.Version \"$(git describe --tags --always)\""
   - ghr --username uetchy --token $GITHUB_TOKEN --replace --prerelease --debug pre-release dist/
+  - ./dist/gst_linux_amd64 version
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
