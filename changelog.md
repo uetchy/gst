@@ -1,5 +1,9 @@
 # ChangeLog
 
+## [1.3.0] - 2015-12-12
+### Added
+- New command 'doctor'
+
 ## [1.2.0] - 2015-08-08
 ### Added
 - List repositories sorted by mod time
