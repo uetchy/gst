@@ -6,7 +6,7 @@ import (
 )
 
 // Version of this program
-const Version string = "HEAD"
+var Version string = "HEAD"
 
 // Commands are list of available commands
 var Commands = []cli.Command{
