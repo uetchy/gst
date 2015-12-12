@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"regexp"
-	"time"
-	"net/url"
 	"strings"
+	"time"
 )
 
 type Repository struct {

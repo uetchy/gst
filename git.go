@@ -5,8 +5,8 @@ import (
 	"github.com/motemen/go-gitconfig"
 	"os"
 	"os/exec"
-	"strings"
 	"path/filepath"
+	"strings"
 )
 
 type GitConfig struct {
