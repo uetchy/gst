@@ -1,0 +1,37 @@
+language: go
+go:
+  - 1.5
+  - tip
+before_install:
+  - go get github.com/laher/goxc
+  - go get github.com/tcnksm/ghr
+  - go get github.com/golang/lint/golint
+script:
+  - golint
+after_success:
+  # Always release compiled build for 'pre-release' tag
+  - goxc -d . -tasks='xc archive' -bc 'linux,!arm windows darwin' -build-ldflags "-X main.Version=$(git describe --tags --always)"
+  - ghr --username uetchy --token $GITHUB_TOKEN --replace --prerelease pre-release snapshot/
+  - ./snapshot/linux_amd64/gst --version
+before_deploy:
+  - go get github.com/uetchy/magicformula
+deploy:
+  # Release if any 'vX.X.X' tag given
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file:
+    - snapshot/gst_darwin_386.zip
+    - snapshot/gst_darwin_amd64.zip
+    - snapshot/gst_linux_386.tar.gz
+    - snapshot/gst_linux_amd64.tar.gz
+    - snapshot/gst_windows_386.zip
+    - snapshot/gst_windows_amd64.zip
+  skip_cleanup: true
+  on:
+    tags: true
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+  slack:
+    secure: "Qxfgwnq4hlkPiNHi2WlP+/ytYFEjlKouRSMCQqASs+rrB8smzZNi0ZRgype/mcooII5UDe1jdF8Y84kj+FIa8OBAipYA2UwqnwABIG444fjr6LSuxeKhYQPHYzIlFPketsFaicnk+anVMxFgmkEXwGNIZq29oMPx+UUfc3DwpQ3in8H7JHhmH980hCacUFGjP4TbTrE0C0myJ0q5C7XcTsiXfVWntfVc9PUlStZ0fmYqpgzoP47371WoCIHXbxHCKagkq/vwtBZICmlFHAGR6/+jE6hnUGH9bktlGv5JgaoRaEtDCg0D/9mrbXPe5y0mzwSUebN4n6LuJk0R7XT87qEO+sugvUxZoio/ahzu2dLFsP0SDgUZhIwACUHVJofQuYucL/OUN3STJmv7Wa78oDwd4XtKVpHHbJ4Fsr/E1CVOr0v5HAK0+iLPxSlFibMSoIdagjYrQw1sZ8OVeC7dB/iBr0g3CtK7JapRLkLOV+d+kwVanulgD1EQcA17QiKN2ziakMNud8DMUkAPuSJD7hxe/sbdfI4c2SyDD1bOTjct5fO1gwAeJP8DyIR7w/grmhmYyecmjhhm/J8CpDoENdqf/F2VFXHgQCUuoiJ+fdM6SqIT4xI5DITwOBB7eOMDEnqiAhR4KdNur2iao+pYiU4GYiVCT1Uva+SOlIzUEDo="
