@@ -2,27 +2,28 @@ language: go
 go:
   - 1.4
   - tip
-install:
-  - go get github.com/mitchellh/gox
+before_install:
+  - go get github.com/laher/goxc
   - go get github.com/tcnksm/ghr
   - go get github.com/golang/lint/golint
+  - goxc -t
 script:
   - golint
 after_success:
   # Pre-release compiled blob
-  - gox -output "dist/{.OS}_{.Arch}_{.Dir}" -build-ldflags "-X main.Version \"$(git describe --tags --always)\""
-  - ghr --username uetchy --token $GITHUB_TOKEN --replace --prerelease --debug pre-release dist/
-  - ./dist/gst_linux_amd64 version
+  - goxc -tasks='xc archive' -bc 'linux,!arm windows darwin' -build-ldflags "-X main.Version \"$(git describe --tags --always)\""
+  - ghr -u uetchy -t $GITHUB_TOKEN --replace --prerelease snapshot/
+  - ls snapshot/
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
   file:
-    - dist/gst_darwin_386
-    - dist/gst_darwin_amd64
-    - dist/gst_linux_386
-    - dist/gst_linux_amd64
-    - dist/gst_windows_386
-    - dist/gst_windows_amd64
+    - snapshot/gst_darwin_386.zip
+    - snapshot/gst_darwin_amd64.zip
+    - snapshot/gst_linux_386.tar.gz
+    - snapshot/gst_linux_amd64.tar.gz
+    - snapshot/gst_windows_386.zip
+    - snapshot/gst_windows_amd64.zip
   skip_cleanup: true
   on:
     tags: true
