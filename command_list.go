@@ -42,7 +42,7 @@ func doList(c *cli.Context) {
 
 	// Listing repos
 	for _, repo := range repos {
-		changes, err := gitStatus(repo.Path)
+		changes, err := GitStatus(repo.Path)
 		if err != nil {
 			continue
 		}
