@@ -1,6 +1,6 @@
 # gst: ghq support toolbox
 
-[![wercker status](https://app.wercker.com/status/2715e17aa6fc187dfa5031b62df5c2e5/s "wercker status")](https://app.wercker.com/project/bykey/2715e17aa6fc187dfa5031b62df5c2e5)
+[![Build Status](https://travis-ci.org/uetchy/gst.svg)](https://travis-ci.org/uetchy/gst)
 
 ## Install
 
@@ -82,7 +82,20 @@ newrepo() {
 
 ### rm
 
+Remove git repository.
+
 ```console
 ❯ gst rm horrible-project
 Remove? /Users/uetchy/repos/src/github.com/uetchy/horrible-project
+```
+
+### doctor
+
+Health-check for repositories.
+
+```console
+❯ gst doctor
+[bitbucket.org/uetchy/scent] git remote origin has changed:
+   Expected:   github.com/uetchy/google-cloud-vision-raspi-sample
+   Actual:	   bitbucket.org/uetchy/scent
 ```
