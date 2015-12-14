@@ -37,8 +37,12 @@ func doDoctor(c *cli.Context) {
 		target := compileTargetPathFromURL(remoteOriginURL)
 		source := strings.TrimPrefix(repo.Path, ghqPath+"/")
 
-		if target != source && !strings.Contains(source, "golang.org/x/") {
-			fmt.Println("[bitbucket.org/uetchy/scent] git remote origin has changed:")
+		if remoteOriginURL == "" {
+			fmt.Println("["+source+"] 'remote.origin' doesn't exist:")
+			fmt.Println("   Expected:\t", source)
+			fmt.Println("   Actual:\t (no remote)")
+		} else if target != source && !strings.Contains(source, "golang.org/x/") {
+			fmt.Println("["+source+"] 'remote.origin' has changed:")
 			fmt.Println("   Expected:\t", target)
 			fmt.Println("   Actual:\t", source)
 			// if fixupIssues {
