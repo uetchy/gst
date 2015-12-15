@@ -1,0 +1,3 @@
+[submodule "travis-scripts"]
+	path = travis-scripts
+	url = https://github.com/uetchy/travis-scripts.git
