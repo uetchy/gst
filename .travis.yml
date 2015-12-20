@@ -13,7 +13,7 @@ after_success:
   - goxc -d . -tasks='xc archive' -bc 'linux,!arm windows darwin' -build-ldflags "-X main.Version=$(git describe --tags --always)"
   - ghr --username uetchy --token $GITHUB_TOKEN --replace --prerelease pre-release snapshot/
   - ./snapshot/linux_amd64/gst --version
-  - scripts/generate-changelog
+  - travis-scripts/generate-changelog
 deploy:
   # Release if any 'vX.X.X' tag given
   provider: releases
