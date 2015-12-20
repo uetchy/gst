@@ -41,6 +41,7 @@ func doDoctor(c *cli.Context) {
 			fmt.Println("["+source+"] 'remote.origin' doesn't exist:")
 			fmt.Println("   Expected:\t", source)
 			fmt.Println("   Actual:\t (no remote)")
+			fmt.Println()
 		} else if target != source && !strings.Contains(source, "golang.org/x/") {
 			fmt.Println("["+source+"] 'remote.origin' has changed:")
 			fmt.Println("   Expected:\t", target)
