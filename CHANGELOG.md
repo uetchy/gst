@@ -1,11 +1,11 @@
 # Change Log
 
-## [Unreleased](https://github.com/uetchy/gst/tree/HEAD)
-
-[Full Changelog](https://github.com/uetchy/gst/compare/v1.3.0...HEAD)
+## [v1.3.1](https://github.com/uetchy/gst/tree/v1.3.1) (2015-12-20)
+[Full Changelog](https://github.com/uetchy/gst/compare/v1.3.0...v1.3.1)
 
 **Merged pull requests:**
 
+- Generate CHANGELOG [\#4](https://github.com/uetchy/gst/pull/4) ([uetchy](https://github.com/uetchy))
 - Fix issue caused by 'gst doctor' [\#3](https://github.com/uetchy/gst/pull/3) ([uetchy](https://github.com/uetchy))
 - Add Travis CI integration [\#2](https://github.com/uetchy/gst/pull/2) ([uetchy](https://github.com/uetchy))
 
