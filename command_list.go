@@ -5,7 +5,6 @@ import (
 	"github.com/codegangsta/cli"
 	"github.com/daviddengcn/go-colortext"
 	"github.com/dustin/go-humanize"
-	"os"
 	"sort"
 )
 
@@ -23,15 +22,10 @@ var commandList = cli.Command{
 }
 
 func doList(c *cli.Context) {
-	ghqPath, err := getGhqPath()
-	if err != nil {
-		fmt.Println("You must setup ghq first")
-		os.Exit(1)
-	}
+	ghqPath := verifyGhqPath()
+	reposChannel := searchForRepos(ghqPath)
 
 	shortExpression := c.Bool("short")
-
-	reposChannel := searchForRepos(ghqPath)
 
 	// Sort by time
 	repos := []Repository{}

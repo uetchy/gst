@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"github.com/motemen/go-gitconfig"
 	"os"
 	"os/exec"
@@ -58,4 +59,19 @@ func GitStatus(targetPath string) ([]string, error) {
 	statuses := strings.Split(string(out), "\n")
 
 	return statuses, nil
+}
+
+// GitPull pulls remote branch
+func GitPull(targetPath string) error {
+	if err := os.Chdir(targetPath); err != nil {
+		return err
+	}
+
+	out, err := exec.Command("git", "pull").Output()
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(string(out))
+	return nil
 }

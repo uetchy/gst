@@ -6,7 +6,7 @@ import (
 )
 
 // Version of this program
-var Version string = "HEAD"
+var Version = "HEAD"
 
 // Commands are list of available commands
 var Commands = []cli.Command{
@@ -14,6 +14,7 @@ var Commands = []cli.Command{
 	commandNew,
 	commandRemove,
 	commandDoctor,
+	commandUpdate,
 }
 
 func main() {

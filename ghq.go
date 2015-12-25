@@ -41,6 +41,15 @@ func (bmt RepositoriesByModTime) Less(i, j int) bool {
 	return bmt.Repositories[i].ModTime.Before(bmt.Repositories[j].ModTime)
 }
 
+func verifyGhqPath() string {
+	ghqPath, err := getGhqPath()
+	if err != nil {
+		fmt.Println("You must setup ghq first")
+		os.Exit(1)
+	}
+	return ghqPath
+}
+
 func getGhqPath() (string, error) {
 	out, err := exec.Command("ghq", "root").Output()
 	if err != nil {
