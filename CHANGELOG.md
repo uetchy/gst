@@ -1,5 +1,12 @@
 # Change Log
 
+## [v.1.4.0](https://github.com/uetchy/gst/tree/v.1.4.0) (2015-12-25)
+[Full Changelog](https://github.com/uetchy/gst/compare/v1.3.1...v.1.4.0)
+
+**Merged pull requests:**
+
+- Add new command 'update' [\#5](https://github.com/uetchy/gst/pull/5) ([uetchy](https://github.com/uetchy))
+
 ## [v1.3.1](https://github.com/uetchy/gst/tree/v1.3.1) (2015-12-20)
 [Full Changelog](https://github.com/uetchy/gst/compare/v1.3.0...v1.3.1)
 
