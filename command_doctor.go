@@ -5,7 +5,6 @@ import (
 	"github.com/codegangsta/cli"
 	// "github.com/daviddengcn/go-colortext"
 	// "github.com/dustin/go-humanize"
-	"os"
 	"strings"
 )
 
@@ -22,13 +21,7 @@ var commandDoctor = cli.Command{
 
 func doDoctor(c *cli.Context) {
 	// fixupIssues := c.Bool("fixup")
-
-	ghqPath, err := getGhqPath()
-	if err != nil {
-		fmt.Println("You must setup ghq first")
-		os.Exit(1)
-	}
-
+	ghqPath := verifyGhqPath()
 	reposChannel := searchForRepos(ghqPath)
 
 	// Listing repos
@@ -38,12 +31,12 @@ func doDoctor(c *cli.Context) {
 		source := strings.TrimPrefix(repo.Path, ghqPath+"/")
 
 		if remoteOriginURL == "" {
-			fmt.Println("["+source+"] 'remote.origin' doesn't exist:")
+			fmt.Println("[" + source + "] 'remote.origin' doesn't exist:")
 			fmt.Println("   Expected:\t", source)
 			fmt.Println("   Actual:\t (no remote)")
 			fmt.Println()
 		} else if target != source && !strings.Contains(source, "golang.org/x/") {
-			fmt.Println("["+source+"] 'remote.origin' has changed:")
+			fmt.Println("[" + source + "] 'remote.origin' has changed:")
 			fmt.Println("   Expected:\t", target)
 			fmt.Println("   Actual:\t", source)
 			// if fixupIssues {
