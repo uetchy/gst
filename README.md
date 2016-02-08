@@ -8,12 +8,6 @@
 ❯ go get github.com/uetchy/gst
 ```
 
-with Homebrew:
-
-```console
-❯ brew install uetchy/gst/gst
-```
-
 ## Usage
 ### `gst list` or `gst`
 
