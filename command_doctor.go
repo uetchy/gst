@@ -6,60 +6,93 @@ import (
 	// "github.com/daviddengcn/go-colortext"
 	// "github.com/dustin/go-humanize"
 	"strings"
+	"github.com/Songmu/prompter"
+	"path/filepath"
+	"os"
 )
 
 var commandDoctor = cli.Command{
 	Name:   "doctor",
 	Action: doDoctor,
-	// Flags: []cli.Flag{
-	//   cli.BoolFlag{
-	// 		Name:  "fixup",
-	// 		Usage: "automatically fix issues",
-	// 	},
-	// },
+	Flags: []cli.Flag{
+	  cli.BoolFlag{
+			Name:  "f, fixup",
+			Usage: "automatically fix issues",
+		},
+	},
 }
 
-func doDoctor(c *cli.Context) {
-	// fixupIssues := c.Bool("fixup")
+func doDoctor(c *cli.Context) error {
+	fixupIssues := c.Bool("fixup")
 	ghqPath := verifyGhqPath()
 	reposChannel := searchForRepos(ghqPath)
 
 	// Listing repos
 	for repo := range reposChannel {
 		remoteOriginURL, _ := GitConfigGet(repo.Path, "remote.origin.url")
-		target := compileTargetPathFromURL(remoteOriginURL)
-		source := strings.TrimPrefix(repo.Path, ghqPath+"/")
+		trimmedRemote := compileTargetPathFromURL(remoteOriginURL)
+		trimmedLocal := strings.TrimPrefix(repo.Path, ghqPath+"/")
 
 		if remoteOriginURL == "" {
-			fmt.Println("[" + source + "] 'remote.origin' doesn't exist:")
-			fmt.Println("   Expected:\t", source)
-			fmt.Println("   Actual:\t (no remote)")
-			fmt.Println()
-		} else if target != source && !strings.Contains(source, "golang.org/x/") {
-			fmt.Println("[" + source + "] 'remote.origin' has changed:")
-			fmt.Println("   Expected:\t", target)
-			fmt.Println("   Actual:\t", source)
-			// if fixupIssues {
-			//   fmt.Println("   [Fixup]")
-			// }
-			fmt.Println()
-		}
+			fmt.Println("===>", trimmedLocal, "'remote.origin' doesn't exist")
+			if fixupIssues {
+				okToChange := prompter.YN("===> Fix remote.origin to" + trimmedLocal + "?", true)
+				if okToChange {
+					slp := strings.Split(trimmedLocal, "/")
+					remotePathFromLocal := fmt.Sprintf("git@%s:%s/%s.git", slp[0], slp[1], slp[2])
+					fmt.Println(remotePathFromLocal)
+					err := GitRemoteAdd(repo.Path, "origin", remotePathFromLocal)
+					if err != nil {
+						fmt.Println("===> Fix failed")
+						fmt.Println(err)
+					} else {
+						fmt.Println("===> Fixed")
+						fmt.Println(remotePathFromLocal)
+					}
+				} else {
+					fmt.Println()
+				}
+			}
+		} else if trimmedRemote != trimmedLocal && !strings.Contains(trimmedLocal, "golang.org/x/") {
+			fmt.Println("===>", trimmedLocal, "'remote.origin' has changed")
+			fmt.Println("Remote:", trimmedRemote)
+			if fixupIssues {
+			  fmt.Println("===> Fixup mode")
+				fmt.Println("[1] "+trimmedLocal)
+				fmt.Println("[2] "+trimmedRemote)
+				choice := prompter.Choose("===> Choose the right location", []string{"1", "2"}, "1")
+				if choice == "1" {
+					// Change remote.origin
+					slp := strings.Split(trimmedLocal, "/")
+					remotePathFromLocal := fmt.Sprintf("git@%s:%s/%s.git", slp[0], slp[1], slp[2])
+					err := GitRemoteSetURL(repo.Path, "origin", remotePathFromLocal)
+					if err != nil {
+						fmt.Println("===> Fix failed")
+						fmt.Println(err)
+						continue
+					}
+					fmt.Println("===> Fixed")
+					fmt.Println(remotePathFromLocal)
+				} else {
+					// Move directory
+					localPathFromRemote := filepath.Join(ghqPath, trimmedRemote)
+					fmt.Println(localPathFromRemote)
+					if _, err := os.Stat(localPathFromRemote); os.IsExist(err) {
+						fmt.Println("===> Fix failed")
+						fmt.Println(localPathFromRemote, "already exist")
+						continue
+					}
 
-		// printlnWithColor(repo.Path, ct.Cyan)
-		// printlnWithColor("-- "+humanize.Time(repo.ModTime), ct.Blue)
-		//
-		// for _, change := range changes[:len(changes)-1] {
-		// 	staged := change[:1]
-		// 	unstaged := change[1:2]
-		// 	filename := change[3:]
-		//
-		// 	if staged == "?" {
-		// 		printWithColor(staged, ct.Red)
-		// 	} else {
-		// 		printWithColor(staged, ct.Green)
-		// 	}
-		// 	printWithColor(unstaged, ct.Red)
-		// 	fmt.Println("", filename)
-		// }
+					if err := os.Rename(repo.Path, localPathFromRemote); err != nil {
+						fmt.Println("===> Fix failed")
+						fmt.Println(err)
+						continue
+					}
+					fmt.Println("===> Fixed")
+					fmt.Println(localPathFromRemote)
+				}
+			}
+		}
 	}
+	return nil
 }

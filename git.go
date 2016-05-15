@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"github.com/motemen/go-gitconfig"
 	"os"
 	"os/exec"
@@ -61,17 +60,65 @@ func GitStatus(targetPath string) ([]string, error) {
 	return statuses, nil
 }
 
+type RepositoryNotFoundError struct {
+	TargetPath string
+}
+func (f RepositoryNotFoundError) Error() string {
+	return "Repository not found or moved: " + f.TargetPath
+}
+
+type NoRemoteSpecifiedError struct {
+	TargetPath string
+}
+func (f NoRemoteSpecifiedError) Error() string {
+	return "No remote repository specified: " + f.TargetPath
+}
+
+func GitRemoteAdd(targetPath string, name string, url string) error {
+	if err := os.Chdir(targetPath); err != nil {
+		return err
+	}
+
+	_, err := exec.Command("git", "remote", "add", name, url).Output()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func GitRemoteSetURL(targetPath string, name string, url string) error {
+	if err := os.Chdir(targetPath); err != nil {
+		return err
+	}
+
+	_, err := exec.Command("git", "remote", "set-url", name, url).Output()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // GitPull pulls remote branch
 func GitPull(targetPath string) error {
 	if err := os.Chdir(targetPath); err != nil {
 		return err
 	}
 
-	out, err := exec.Command("git", "pull").Output()
+	out, err := exec.Command("git", "pull").CombinedOutput()
 	if err != nil {
-		return err
+		eout := string(out)
+		if strings.HasPrefix(eout, "conq: repository does not exist.") {
+			return &RepositoryNotFoundError{targetPath}
+		} else if strings.HasPrefix(eout, "ERROR: Repository not found.") {
+			return &RepositoryNotFoundError{targetPath}
+		} else if strings.HasPrefix(eout, "fatal: No remote repository specified.") {
+			return &NoRemoteSpecifiedError{targetPath}
+		} else {
+			return err
+		}
 	}
 
-	fmt.Println(string(out))
 	return nil
 }
