@@ -21,7 +21,7 @@ var commandList = cli.Command{
 	Flags:  flagsOfList,
 }
 
-func doList(c *cli.Context) {
+func doList(c *cli.Context) error {
 	ghqPath := verifyGhqPath()
 	reposChannel := searchForRepos(ghqPath)
 
@@ -65,4 +65,5 @@ func doList(c *cli.Context) {
 
 		fmt.Println()
 	}
+	return nil
 }

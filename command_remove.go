@@ -12,7 +12,7 @@ var commandRemove = cli.Command{
 	Action: doRemove,
 }
 
-func doRemove(c *cli.Context) {
+func doRemove(c *cli.Context) error {
 	target := compileTargetPath(c.Args().Get(0))
 
 	if _, err := os.Stat(target); err == nil {
@@ -29,4 +29,6 @@ func doRemove(c *cli.Context) {
 	} else {
 		fmt.Println("Doesn't exist: " + target)
 	}
+
+	return nil
 }

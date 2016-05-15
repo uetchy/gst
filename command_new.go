@@ -12,7 +12,7 @@ var commandNew = cli.Command{
 	Action: doNew,
 }
 
-func doNew(c *cli.Context) {
+func doNew(c *cli.Context) error {
 	target := compileTargetPath(c.Args().Get(0))
 
 	err := exec.Command("mkdir", "-p", target).Run()
@@ -37,4 +37,5 @@ func doNew(c *cli.Context) {
 	}
 
 	fmt.Println(target)
+	return nil
 }

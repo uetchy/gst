@@ -19,7 +19,7 @@ var commandUpdate = cli.Command{
 	Flags:  flagsOfUpdate,
 }
 
-func doUpdate(c *cli.Context) {
+func doUpdate(c *cli.Context) error {
 	ghqPath := verifyGhqPath()
 	repos := searchForRepos(ghqPath)
 
@@ -31,4 +31,6 @@ func doUpdate(c *cli.Context) {
 			fmt.Println(err)
 		}
 	}
+
+	return nil
 }

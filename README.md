@@ -9,6 +9,7 @@
 ```
 
 ## Usage
+
 ### `gst list` or `gst`
 
 List all of repositories changed git status
@@ -33,7 +34,7 @@ A  changelog.md
 R  gst.go -> main.go
 ```
 
-with __--short__ option:
+with **--short** option:
 
 ```console
 ❯ gst --short
@@ -51,7 +52,7 @@ You can also use `peco` for pipeline processing as:
 
 Create git repository.
 
-Before start using 'new' and 'rm' command, You __must__ set 'github.user' to .gitconfig with `git config --global github.user <user>`.
+Before start using 'new' and 'rm' command, You **must** set 'github.user' to .gitconfig with `git config --global github.user <user>`.
 
 ```console
 ❯ gst new awesome-project
@@ -91,7 +92,7 @@ Health-check for repositories.
 ❯ gst doctor
 [bitbucket.org/uetchy/scent] git remote origin has changed:
    Expected:   github.com/uetchy/google-cloud-vision-raspi-sample
-   Actual:	   bitbucket.org/uetchy/scent
+   Actual:       bitbucket.org/uetchy/scent
 ```
 
 ### update
