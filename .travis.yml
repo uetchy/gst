@@ -1,29 +1,21 @@
+sudo: false
 language: go
 go:
-  - 1.5
   - tip
 before_install:
-  - go get github.com/laher/goxc
-  - go get github.com/tcnksm/ghr
-  - go get github.com/golang/lint/golint
-script:
-  - golint
+  - go get -v github.com/mitchellh/gox
+  - go get -v github.com/tcnksm/ghr
 after_success:
-  # Always release compiled build for 'pre-release' tag
-  - goxc -d . -tasks='xc archive' -bc 'linux,!arm windows darwin' -build-ldflags "-X main.Version=$(git describe --tags --always)"
-  - ghr --username uetchy --token $GITHUB_TOKEN --replace --prerelease pre-release snapshot/
-  - ./snapshot/linux_amd64/gst --version
-deploy:
-  # Release if any 'vX.X.X' tag given
+  # Cross compile go project
+  - gox -os="linux darwin windows" -arch="386 amd64" -output "pkg/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags="-X main.Version=`git describe --tags --match 'v*'`"
+  # Verify compiled binaries
+  - ./pkg/nv_linux_amd64 --version
+  # Create pre releases for every commits
+  - ghr --username uetchy --replace --prerelease pre-release pkg/
+deploy: # Deploy stable version if commmits have a tag such as 'v2.0.0'
   provider: releases
   api_key: $GITHUB_TOKEN
-  file:
-    - snapshot/gst_darwin_386.zip
-    - snapshot/gst_darwin_amd64.zip
-    - snapshot/gst_linux_386.tar.gz
-    - snapshot/gst_linux_amd64.tar.gz
-    - snapshot/gst_windows_386.zip
-    - snapshot/gst_windows_amd64.zip
+  file: "pkg/*"
   skip_cleanup: true
   on:
     tags: true
