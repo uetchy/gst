@@ -4,14 +4,9 @@ go:
   - tip
 before_install:
   - go get -v github.com/mitchellh/gox
-  - go get -v github.com/tcnksm/ghr
-after_success:
-  # Cross compile go project
-  - gox -os="linux darwin windows" -arch="386 amd64" -output "pkg/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags="-X main.Version=`git describe --tags --match 'v*'`"
-  # Verify compiled binaries
-  - ./pkg/nv_linux_amd64 --version
-  # Create pre releases for every commits
-  - ghr --username uetchy --replace --prerelease pre-release pkg/
+before_deploy:
+  - gox -os="linux darwin windows" -arch="386 amd64" -output "pkg/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags="-X main.Version=`git describe --tags --match 'v*'`" # Cross compile go project
+  - ./pkg/nv_linux_amd64 --version # Verify compiled binaries
 deploy: # Deploy stable version if commmits have a tag such as 'v2.0.0'
   provider: releases
   api_key: $GITHUB_TOKEN
