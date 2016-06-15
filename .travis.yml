@@ -10,6 +10,7 @@ before_deploy:
 deploy: # Deploy stable version if commmits have a tag such as 'v2.0.0'
   provider: releases
   api_key: $GITHUB_TOKEN
+  overwrite: true
   file_glob: true
   file: "pkg/*"
   skip_cleanup: true
