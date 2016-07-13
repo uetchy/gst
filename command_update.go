@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/codegangsta/cli"
 	"github.com/daviddengcn/go-colortext"
+	"strings"
 )
 
 var flagsOfUpdate = []cli.Flag{
@@ -26,9 +27,13 @@ func doUpdate(c *cli.Context) error {
 	// Listing repos
 	for repo := range repos {
 		printlnWithColor(repo.Path, ct.Cyan)
-		err := GitPull(repo.Path)
+		out, err := GitPull(repo.Path)
 		if err != nil {
 			fmt.Println(err)
+			continue
+		}
+		if strings.Contains(out, "Already up-to-date") != true {
+			fmt.Println(out)
 		}
 	}
 

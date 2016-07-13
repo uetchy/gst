@@ -63,6 +63,7 @@ func GitStatus(targetPath string) ([]string, error) {
 type RepositoryNotFoundError struct {
 	TargetPath string
 }
+
 func (f RepositoryNotFoundError) Error() string {
 	return "Repository not found or moved: " + f.TargetPath
 }
@@ -70,6 +71,7 @@ func (f RepositoryNotFoundError) Error() string {
 type NoRemoteSpecifiedError struct {
 	TargetPath string
 }
+
 func (f NoRemoteSpecifiedError) Error() string {
 	return "No remote repository specified: " + f.TargetPath
 }
@@ -101,24 +103,24 @@ func GitRemoteSetURL(targetPath string, name string, url string) error {
 }
 
 // GitPull pulls remote branch
-func GitPull(targetPath string) error {
+func GitPull(targetPath string) (string, error) {
 	if err := os.Chdir(targetPath); err != nil {
-		return err
+		return "", err
 	}
 
 	out, err := exec.Command("git", "pull").CombinedOutput()
 	if err != nil {
 		eout := string(out)
 		if strings.HasPrefix(eout, "conq: repository does not exist.") {
-			return &RepositoryNotFoundError{targetPath}
+			return "", &RepositoryNotFoundError{targetPath}
 		} else if strings.HasPrefix(eout, "ERROR: Repository not found.") {
-			return &RepositoryNotFoundError{targetPath}
+			return "", &RepositoryNotFoundError{targetPath}
 		} else if strings.HasPrefix(eout, "fatal: No remote repository specified.") {
-			return &NoRemoteSpecifiedError{targetPath}
+			return "", &NoRemoteSpecifiedError{targetPath}
 		} else {
-			return err
+			return "", err
 		}
 	}
 
-	return nil
+	return string(out), nil
 }

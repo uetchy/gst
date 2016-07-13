@@ -5,17 +5,17 @@ import (
 	"github.com/codegangsta/cli"
 	// "github.com/daviddengcn/go-colortext"
 	// "github.com/dustin/go-humanize"
-	"strings"
 	"github.com/Songmu/prompter"
-	"path/filepath"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 var commandDoctor = cli.Command{
 	Name:   "doctor",
 	Action: doDoctor,
 	Flags: []cli.Flag{
-	  cli.BoolFlag{
+		cli.BoolFlag{
 			Name:  "f, fixup",
 			Usage: "automatically fix issues",
 		},
@@ -36,7 +36,7 @@ func doDoctor(c *cli.Context) error {
 		if remoteOriginURL == "" {
 			fmt.Println("===>", trimmedLocal, "'remote.origin' doesn't exist")
 			if fixupIssues {
-				okToChange := prompter.YN("===> Fix remote.origin to" + trimmedLocal + "?", true)
+				okToChange := prompter.YN("===> Fix remote.origin to"+trimmedLocal+"?", true)
 				if okToChange {
 					slp := strings.Split(trimmedLocal, "/")
 					remotePathFromLocal := fmt.Sprintf("git@%s:%s/%s.git", slp[0], slp[1], slp[2])
@@ -57,9 +57,9 @@ func doDoctor(c *cli.Context) error {
 			fmt.Println("===>", trimmedLocal, "'remote.origin' has changed")
 			fmt.Println("Remote:", trimmedRemote)
 			if fixupIssues {
-			  fmt.Println("===> Fixup mode")
-				fmt.Println("[1] "+trimmedLocal)
-				fmt.Println("[2] "+trimmedRemote)
+				fmt.Println("===> Fixup mode")
+				fmt.Println("[1] " + trimmedLocal)
+				fmt.Println("[2] " + trimmedRemote)
 				choice := prompter.Choose("===> Choose the right location", []string{"1", "2"}, "1")
 				if choice == "1" {
 					// Change remote.origin
