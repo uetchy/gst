@@ -6,6 +6,8 @@ __gst__ is a auxiliary toolbox for [motemen/ghq](https://github.com/motemen/ghq)
 
 This tool provides various handy commands over ghq enabled environment.
 
+![](http://randompaper.co.s3.amazonaws.com/gst/gst.gif)
+
 ## Usage
 
 ### `gst list` or `gst`
