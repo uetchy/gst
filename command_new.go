@@ -31,7 +31,7 @@ func doNew(c *cli.Context) error {
 		os.Exit(1)
 	}
 
-	if err = exec.Command("touch", "README.md", "CHANGELOG.md").Run(); err != nil {
+	if err = exec.Command("touch", "README.md").Run(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
