@@ -17,12 +17,12 @@ List uncommitted changes and unpushed commits over all repositories.
 ```console
 $ gst
 /Users/uetchy/Repos/src/github.com/uetchy/gst (11 minutes ago)
-[Uncommitted Changes]
+uncommitted changes
  M .travis.yml
  M README.md
 
 /Users/uetchy/Repos/src/github.com/uetchy/qiita-takeout (9 hours ago)
-[Unpushed Commits]
+unpushed commits
 409849d returns Promise.reject
 ```
 
@@ -37,7 +37,7 @@ $ gst --short
 You can also use it with `peco` for pipeline processing as:
 
 ```
-$ cd $(gst --short | peco)
+cd $(gst --short | peco)
 ```
 
 ### new
