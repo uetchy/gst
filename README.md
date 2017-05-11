@@ -104,14 +104,14 @@ See [releases](https://github.com/uetchy/gst/releases/latest).
 macOS:
 
 ```console
-curl -L https://github.com/uetchy/gst/releases/download/v2.0.0/gst_darwin_amd64.zip > /usr/local/bin/gst
+curl -L https://github.com/uetchy/gst/releases/download/v2.0.0/gst_darwin_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
 Linux:
 
 ```console
-curl -L https://github.com/uetchy/gst/releases/download/v2.0.0/gst_linux_amd64.zip > /usr/local/bin/gst
+curl -L https://github.com/uetchy/gst/releases/download/v2.0.0/gst_linux_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
@@ -120,14 +120,14 @@ chmod +x /usr/local/bin/gst
 macOS:
 
 ```console
-curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_darwin_amd64.zip > /usr/local/bin/gst
+curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_darwin_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
 Linux:
 
 ```console
-curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_linux_amd64.zip > /usr/local/bin/gst
+curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_linux_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
