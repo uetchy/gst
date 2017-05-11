@@ -79,9 +79,9 @@ func GitStatus(targetPath string) ([]string, error) {
 		return nil, errors.New("No status changed")
 	}
 
-	statuses := strings.Split(strings.TrimSpace(string(out)), "\n")
+	statuses := strings.Split(string(out), "\n")
 
-	return statuses, nil
+	return statuses[:len(statuses)-1], nil
 }
 
 // git log --branches --not --remotes
