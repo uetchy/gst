@@ -52,8 +52,8 @@ func doList(c *cli.Context) error {
 
 		// print uncommited changes
 		if ccErr == nil {
-			printlnWithColor("[Uncommitted Changes]", ct.Magenta)
-			for _, changes := range uncommitedChanges[:len(uncommitedChanges)-1] {
+			printlnWithColor("uncommitted changes", ct.Magenta)
+			for _, changes := range uncommitedChanges {
 				staged := changes[:1]
 				unstaged := changes[1:2]
 				filename := changes[3:]
@@ -70,10 +70,12 @@ func doList(c *cli.Context) error {
 
 		// print unpushed commits
 		if pcErr == nil {
-			printlnWithColor("[Unpushed Commits]", ct.Magenta)
-			line := strings.Split(unpushedCommits, " ")
-			printWithColor(line[0], ct.Yellow)
-			fmt.Print(" " + strings.Join(line[1:], " "))
+			printlnWithColor("unpushed commits", ct.Magenta)
+			for _, commit := range unpushedCommits {
+				line := strings.Split(commit, " ")
+				printWithColor(line[0], ct.Yellow)
+				fmt.Println(" " + strings.Join(line[1:], " "))
+			}
 		}
 
 		fmt.Println()

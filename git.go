@@ -79,32 +79,34 @@ func GitStatus(targetPath string) ([]string, error) {
 		return nil, errors.New("No status changed")
 	}
 
-	statuses := strings.Split(string(out), "\n")
+	statuses := strings.Split(strings.TrimSpace(string(out)), "\n")
 
 	return statuses, nil
 }
 
 // git log --branches --not --remotes
-func GitLog(targetPath string) (string, error) {
+func GitLog(targetPath string) ([]string, error) {
 	if err := os.Chdir(targetPath); err != nil {
-		return "", err
+		return nil, err
 	}
 
 	out, err := exec.Command("git", "log", "--branches", "--not", "--remotes", "--oneline").CombinedOutput()
 	if err != nil {
 		eout := string(out)
 		if strings.HasPrefix(eout, "does not have any commits yet") {
-			return "", &NoCommitsError{targetPath}
+			return nil, &NoCommitsError{targetPath}
 		} else {
-			return "", err
+			return nil, err
 		}
 	}
 
 	if len(out) == 0 {
-		return "", errors.New("No output")
+		return nil, errors.New("No output")
 	}
 
-	return string(out), nil
+	statuses := strings.Split(strings.TrimSpace(string(out)), "\n")
+
+	return statuses, nil
 }
 
 func GitRemoteAdd(targetPath string, name string, url string) error {
