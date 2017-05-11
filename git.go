@@ -18,6 +18,30 @@ type GitConfig struct {
 	RemoteOriginURL string `gitconfig:"remote.origin.url"`
 }
 
+type RepositoryNotFoundError struct {
+	TargetPath string
+}
+
+func (f RepositoryNotFoundError) Error() string {
+	return "Repository not found or moved: " + f.TargetPath
+}
+
+type NoRemoteSpecifiedError struct {
+	TargetPath string
+}
+
+func (f NoRemoteSpecifiedError) Error() string {
+	return "No remote repository specified: " + f.TargetPath
+}
+
+type NoCommitsError struct {
+	TargetPath string
+}
+
+func (f NoCommitsError) Error() string {
+	return "Does not have any commits yet: " + f.TargetPath
+}
+
 // GitConfigGet returns git config value by key
 func GitConfigGet(targetPath string, key string) (string, error) {
 	var configFile gitconfig.Config
@@ -60,20 +84,27 @@ func GitStatus(targetPath string) ([]string, error) {
 	return statuses, nil
 }
 
-type RepositoryNotFoundError struct {
-	TargetPath string
-}
+// git log --branches --not --remotes
+func GitLog(targetPath string) (string, error) {
+	if err := os.Chdir(targetPath); err != nil {
+		return "", err
+	}
 
-func (f RepositoryNotFoundError) Error() string {
-	return "Repository not found or moved: " + f.TargetPath
-}
+	out, err := exec.Command("git", "log", "--branches", "--not", "--remotes", "--oneline").CombinedOutput()
+	if err != nil {
+		eout := string(out)
+		if strings.HasPrefix(eout, "does not have any commits yet") {
+			return "", &NoCommitsError{targetPath}
+		} else {
+			return "", err
+		}
+	}
 
-type NoRemoteSpecifiedError struct {
-	TargetPath string
-}
+	if len(out) == 0 {
+		return "", errors.New("No output")
+	}
 
-func (f NoRemoteSpecifiedError) Error() string {
-	return "No remote repository specified: " + f.TargetPath
+	return string(out), nil
 }
 
 func GitRemoteAdd(targetPath string, name string, url string) error {

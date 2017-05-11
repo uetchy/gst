@@ -6,6 +6,7 @@ import (
 	"github.com/daviddengcn/go-colortext"
 	"github.com/dustin/go-humanize"
 	"sort"
+	"strings"
 )
 
 var flagsOfList = []cli.Flag{
@@ -36,8 +37,9 @@ func doList(c *cli.Context) error {
 
 	// Listing repos
 	for _, repo := range repos {
-		changes, err := GitStatus(repo.Path)
-		if err != nil {
+		uncommitedChanges, ccErr := GitStatus(repo.Path)
+		unpushedCommits, pcErr := GitLog(repo.Path)
+		if ccErr != nil && pcErr != nil {
 			continue
 		}
 
@@ -46,21 +48,32 @@ func doList(c *cli.Context) error {
 			continue
 		}
 
-		printlnWithColor(repo.Path, ct.Cyan)
-		printlnWithColor("-- "+humanize.Time(repo.ModTime), ct.Blue)
+		printlnWithColor(repo.Path+" ("+humanize.Time(repo.ModTime)+")", ct.Cyan)
 
-		for _, change := range changes[:len(changes)-1] {
-			staged := change[:1]
-			unstaged := change[1:2]
-			filename := change[3:]
+		// print uncommited changes
+		if ccErr == nil {
+			printlnWithColor("[Uncommitted Changes]", ct.Magenta)
+			for _, changes := range uncommitedChanges[:len(uncommitedChanges)-1] {
+				staged := changes[:1]
+				unstaged := changes[1:2]
+				filename := changes[3:]
 
-			if staged == "?" {
-				printWithColor(staged, ct.Red)
-			} else {
-				printWithColor(staged, ct.Green)
+				if staged == "?" {
+					printWithColor(staged, ct.Red)
+				} else {
+					printWithColor(staged, ct.Green)
+				}
+				printWithColor(unstaged, ct.Red)
+				fmt.Println("", filename)
 			}
-			printWithColor(unstaged, ct.Red)
-			fmt.Println("", filename)
+		}
+
+		// print unpushed commits
+		if pcErr == nil {
+			printlnWithColor("[Unpushed Commits]", ct.Magenta)
+			line := strings.Split(unpushedCommits, " ")
+			printWithColor(line[0], ct.Yellow)
+			fmt.Print(" " + strings.Join(line[1:], " "))
 		}
 
 		fmt.Println()
