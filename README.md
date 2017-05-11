@@ -1,44 +1,10 @@
-# gst: ghq support toolbox
+# gst
 
 [![Build Status](https://travis-ci.org/uetchy/gst.svg)](https://travis-ci.org/uetchy/gst)
 
-## Quick Install
+__gst__ is a auxiliary toolbox for [motemen/ghq](https://github.com/motemen/ghq).
 
-macOS:
-
-```console
-curl -L https://github.com/uetchy/gst/releases/download/v1.4.0/gst_darwin_amd64.zip > /usr/local/bin/gst
-chmod +x /usr/local/bin/gst
-```
-
-Linux:
-
-```console
-curl -L https://github.com/uetchy/gst/releases/download/v1.4.0/gst_linux_amd64.zip > /usr/local/bin/gst
-chmod +x /usr/local/bin/gst
-```
-
-### Pre-release build
-
-macOS:
-
-```console
-curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_darwin_amd64.zip > /usr/local/bin/gst
-chmod +x /usr/local/bin/gst
-```
-
-Linux:
-
-```console
-curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_linux_amd64.zip > /usr/local/bin/gst
-chmod +x /usr/local/bin/gst
-```
-
-### Head build
-
-```console
-go get github.com/uetchy/gst
-```
+This tool provides various handy commands over ghq enabled environment.
 
 ## Usage
 
@@ -74,7 +40,7 @@ $ cd $(gst --short | peco)
 
 ### new
 
-Create git repository.
+Create a git repository.
 
 Before start using 'new' and 'rm' command, You **must** set 'github.user' to .gitconfig with `git config --global github.user <user>`.
 
@@ -101,7 +67,7 @@ newrepo() {
 
 ### rm
 
-Remove git repository.
+Remove a git repository.
 
 ```console
 $ gst rm horrible-project
@@ -127,4 +93,44 @@ $ gst doctor
 $ gst update
 /Users/uetchy/Repos/src/github.com/uetchy/gst
 Already up-to-date.
+```
+
+## Quick Install
+
+See [releases](https://github.com/uetchy/gst/releases/latest).
+
+macOS:
+
+```console
+curl -L https://github.com/uetchy/gst/releases/download/v2.0.0/gst_darwin_amd64.zip > /usr/local/bin/gst
+chmod +x /usr/local/bin/gst
+```
+
+Linux:
+
+```console
+curl -L https://github.com/uetchy/gst/releases/download/v2.0.0/gst_linux_amd64.zip > /usr/local/bin/gst
+chmod +x /usr/local/bin/gst
+```
+
+### Pre-release build
+
+macOS:
+
+```console
+curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_darwin_amd64.zip > /usr/local/bin/gst
+chmod +x /usr/local/bin/gst
+```
+
+Linux:
+
+```console
+curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_linux_amd64.zip > /usr/local/bin/gst
+chmod +x /usr/local/bin/gst
+```
+
+### Head build
+
+```console
+go get github.com/uetchy/gst
 ```
