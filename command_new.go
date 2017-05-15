@@ -5,6 +5,7 @@ import (
 	"github.com/codegangsta/cli"
 	"os"
 	"os/exec"
+	"path/filepath"
 )
 
 var commandNew = cli.Command{
@@ -12,29 +13,31 @@ var commandNew = cli.Command{
 	Action: doNew,
 }
 
+func check(e error) {
+	if e != nil {
+		fmt.Println(e)
+		os.Exit(1)
+	}
+}
+
 func doNew(c *cli.Context) error {
-	target := compileTargetPath(c.Args().Get(0))
+	name := c.Args().Get(0)
+	target := compileTargetPath(name)
 
 	err := exec.Command("mkdir", "-p", target).Run()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	check(err)
 
-	if err = os.Chdir(target); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	err = os.Chdir(target)
+	check(err)
 
-	if err = exec.Command("git", "init").Run(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	err = exec.Command("git", "init").Run()
+	check(err)
 
-	if err = exec.Command("touch", "README.md").Run(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	f, err := os.Create(filepath.Join(target, "README.md"))
+	check(err)
+	defer f.Close()
+	_, err = f.WriteString("# " + name + "\n")
+	f.Sync()
 
 	fmt.Println(target)
 	return nil
