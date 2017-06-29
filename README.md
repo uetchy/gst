@@ -14,7 +14,7 @@ This tool provides various handy commands over ghq enabled environment.
 
 List uncommitted changes and unpushed commits over all repositories.
 
-```console
+```
 $ gst
 /Users/uetchy/Repos/src/github.com/uetchy/gst (11 minutes ago)
 uncommitted changes
@@ -28,7 +28,7 @@ unpushed commits
 
 with **--short** option:
 
-```console
+```
 $ gst --short
 /Users/uetchy/Repos/src/github.com/uetchy/ferret
 /Users/uetchy/Repos/src/github.com/uetchy/gst
@@ -46,7 +46,7 @@ Create a git repository.
 
 Before start using 'new' and 'rm' command, You **must** set 'github.user' to .gitconfig with `git config --global github.user <user>`.
 
-```console
+```
 $ gst new epic-project
 /Users/uetchy/Repos/src/github.com/uetchy/epic-project
 $ gst new epic-team/epic-project
@@ -55,7 +55,7 @@ $ gst new epic-team/epic-project
 
 with `cd`, You can jump to created project:
 
-```console
+```
 $ cd $(gst new epic-project)
 ```
 
@@ -71,7 +71,7 @@ newrepo() {
 
 Remove a git repository.
 
-```console
+```
 $ gst rm horrible-project
 Remove? /Users/uetchy/Repos/src/github.com/uetchy/horrible-project
 ```
@@ -80,7 +80,7 @@ Remove? /Users/uetchy/Repos/src/github.com/uetchy/horrible-project
 
 Health-check all repositories.
 
-```console
+```
 $ gst doctor
 [bitbucket.org/uetchy/scent] git remote origin has changed:
    Expected:   github.com/uetchy/google-cloud-vision-raspi-sample
@@ -91,7 +91,7 @@ $ gst doctor
 
 `git pull` to all repositories.
 
-```console
+```
 $ gst update
 /Users/uetchy/Repos/src/github.com/uetchy/gst
 Already up-to-date.
@@ -103,14 +103,14 @@ See [releases](https://github.com/uetchy/gst/releases/latest).
 
 macOS:
 
-```console
+```
 curl -L https://github.com/uetchy/gst/releases/download/v2.0.0/gst_darwin_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
 Linux:
 
-```console
+```
 curl -L https://github.com/uetchy/gst/releases/download/v2.0.0/gst_linux_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
@@ -119,20 +119,20 @@ chmod +x /usr/local/bin/gst
 
 macOS:
 
-```console
+```
 curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_darwin_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
 Linux:
 
-```console
+```
 curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_linux_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
 ### Head build
 
-```console
+```
 go get github.com/uetchy/gst
 ```
