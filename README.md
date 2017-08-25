@@ -97,6 +97,18 @@ $ gst update
 Already up-to-date.
 ```
 
+### fetch
+
+`git fetch --tags --prune` to all repositories.
+
+```
+$ gst fetch
+/Users/uetchy/Repos/src/github.com/uetchy/gst
+ * [new branch]      dev        -> origin/dev
+ - [deleted]         (none)     -> origin/test
+ * [new tag]         v1.0.0     -> v1.0.0
+```
+
 ## Quick Install
 
 See [releases](https://github.com/uetchy/gst/releases/latest).
