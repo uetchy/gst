@@ -157,3 +157,26 @@ func GitPull(targetPath string) (string, error) {
 
 	return string(out), nil
 }
+
+// GitFetch update tags and remove old branches
+func GitFetch(targetPath string) (string, error) {
+	if err := os.Chdir(targetPath); err != nil {
+		return "", err
+	}
+
+	out, err := exec.Command("git", "fetch", "--tags", "--prune").CombinedOutput()
+	if err != nil {
+		eout := string(out)
+		if strings.HasPrefix(eout, "conq: repository does not exist.") {
+			return "", &RepositoryNotFoundError{targetPath}
+		} else if strings.HasPrefix(eout, "ERROR: Repository not found.") {
+			return "", &RepositoryNotFoundError{targetPath}
+		} else if strings.HasPrefix(eout, "fatal: No remote repository specified.") {
+			return "", &NoRemoteSpecifiedError{targetPath}
+		} else {
+			return "", err
+		}
+	}
+
+	return string(out), nil
+}
