@@ -16,6 +16,7 @@ var Commands = []cli.Command{
 	commandDoctor,
 	commandUpdate,
 	commandFetch,
+	commandTimeline,
 }
 
 func main() {
@@ -24,7 +25,7 @@ func main() {
 	app.Version = Version
 	app.Usage = "gst"
 	app.Author = "Yasuaki Uechi"
-	app.Email = "uetchy@randompaper.co"
+	app.Email = "y@uechi.io"
 	app.Commands = Commands
 
 	// Declare default action
