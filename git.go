@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"net/http"
 )
 
 // GitConfig represents git config file
@@ -179,4 +180,18 @@ func GitFetch(targetPath string) (string, error) {
 	}
 
 	return string(out), nil
+}
+
+func GitRemoteLocation(targetURL string) (string, error) {
+	resp, err := http.Head(targetURL)
+	if (err != nil) {
+		return "", err
+	}
+	if (resp.StatusCode == 301) {
+		// Moved permanently
+		return resp.Header['Location'], nil
+	} else if (resp.StatusCode == 404) {
+		// Not found
+		return "", &RepositoryNotFoundError{targetURL}
+	}
 }
