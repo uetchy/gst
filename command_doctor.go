@@ -16,14 +16,14 @@ var commandDoctor = cli.Command{
 	Action: doDoctor,
 	Flags: []cli.Flag{
 		cli.BoolFlag{
-			Name:  "f, fixup",
+			Name:  "f, fix",
 			Usage: "automatically fix issues",
 		},
 	},
 }
 
 func doDoctor(c *cli.Context) error {
-	fixupIssues := c.Bool("fixup")
+	fixupIssues := c.Bool("fix")
 	ghqPath := verifyGhqPath()
 	reposChannel := searchForRepos(ghqPath)
 
