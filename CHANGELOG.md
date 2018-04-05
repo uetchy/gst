@@ -4,7 +4,7 @@
 
 **Add**
 
-- Fixup mode
+* Fixup mode
 
 ## [v.1.4.0](https://github.com/uetchy/gst/tree/v.1.4.0) (2015-12-25)
 
@@ -12,7 +12,7 @@
 
 **Merged pull requests:**
 
-- Add new command 'update' [#5](https://github.com/uetchy/gst/pull/5) ([uetchy](https://github.com/uetchy))
+* Add new command 'update' [#5](https://github.com/uetchy/gst/pull/5) ([uetchy](https://github.com/uetchy))
 
 ## [v1.3.1](https://github.com/uetchy/gst/tree/v1.3.1) (2015-12-20)
 
@@ -20,9 +20,9 @@
 
 **Merged pull requests:**
 
-- Generate CHANGELOG [#4](https://github.com/uetchy/gst/pull/4) ([uetchy](https://github.com/uetchy))
-- Fix issue caused by 'gst doctor' [#3](https://github.com/uetchy/gst/pull/3) ([uetchy](https://github.com/uetchy))
-- Add Travis CI integration [#2](https://github.com/uetchy/gst/pull/2) ([uetchy](https://github.com/uetchy))
+* Generate CHANGELOG [#4](https://github.com/uetchy/gst/pull/4) ([uetchy](https://github.com/uetchy))
+* Fix issue caused by 'gst doctor' [#3](https://github.com/uetchy/gst/pull/3) ([uetchy](https://github.com/uetchy))
+* Add Travis CI integration [#2](https://github.com/uetchy/gst/pull/2) ([uetchy](https://github.com/uetchy))
 
 ## [v1.3.0](https://github.com/uetchy/gst/tree/v1.3.0) (2015-12-12)
 
@@ -34,7 +34,7 @@
 
 **Merged pull requests:**
 
-- Add command 'doctor' [#1](https://github.com/uetchy/gst/pull/1) ([uetchy](https://github.com/uetchy))
+* Add command 'doctor' [#1](https://github.com/uetchy/gst/pull/1) ([uetchy](https://github.com/uetchy))
 
 ## [v1.2.0](https://github.com/uetchy/gst/tree/v1.2.0) (2015-08-08)
 

@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/uetchy/gst.svg)](https://travis-ci.org/uetchy/gst)
 
-__gst__ is a auxiliary toolbox for [motemen/ghq](https://github.com/motemen/ghq).
+**gst** is a auxiliary toolbox for [motemen/ghq](https://github.com/motemen/ghq).
 
 This tool provides various handy commands over ghq enabled environment.
 

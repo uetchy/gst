@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/Songmu/prompter"
 	"github.com/codegangsta/cli"
-	"os"
 )
 
 var commandRemove = cli.Command{

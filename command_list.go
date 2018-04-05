@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"sort"
+	"strings"
+
 	"github.com/codegangsta/cli"
 	"github.com/daviddengcn/go-colortext"
 	"github.com/dustin/go-humanize"
-	"sort"
-	"strings"
 )
 
 var flagsOfList = []cli.Flag{

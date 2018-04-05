@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/codegangsta/cli"
 	"github.com/daviddengcn/go-colortext"
-	"strings"
 )
 
 var flagsOfUpdate = []cli.Flag{

@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/codegangsta/cli"
-	// "github.com/daviddengcn/go-colortext"
-	// "github.com/dustin/go-humanize"
-	"github.com/Songmu/prompter"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/Songmu/prompter"
+	"github.com/codegangsta/cli"
 )
 
 var commandDoctor = cli.Command{

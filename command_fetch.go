@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/codegangsta/cli"
 	"github.com/daviddengcn/go-colortext"
 )

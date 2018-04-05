@@ -1,11 +1,12 @@
 package main
 
 import (
+	"sort"
+	"time"
+
 	"github.com/codegangsta/cli"
 	"github.com/daviddengcn/go-colortext"
 	"github.com/dustin/go-humanize"
-	"time"
-	"sort"
 )
 
 var flagsOfTimeline = []cli.Flag{

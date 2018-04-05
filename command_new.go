@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/codegangsta/cli"
 	"os"
 	"os/exec"
 	"path/filepath"
+
+	"github.com/codegangsta/cli"
 )
 
 var commandNew = cli.Command{
