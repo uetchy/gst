@@ -1,10 +1,12 @@
-sudo: false
+sudo: required
+services:
+  - docker
 language: go
 go:
-  - tip
-before_install:
-  - go get -v github.com/mitchellh/gox
+  - stable
+script: make test
 before_deploy:
+  - go get -v github.com/mitchellh/gox
   - gox
       -os="linux darwin windows"
       -arch="386 amd64"

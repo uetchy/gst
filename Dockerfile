@@ -1,19 +1,9 @@
 FROM golang:1.10
 
-WORKDIR /go/src/github.com/uetchy/gst
 
 # install ghq
 RUN go get github.com/motemen/ghq
 COPY test/fixture/gitconfig /root/.gitconfig
-
-# install deps
-RUN go get github.com/golang/dep/cmd/dep
-COPY Gopkg.toml Gopkg.lock ./
-RUN dep ensure -v -vendor-only
-
-# build gst
-COPY *.go ./
-RUN CGO_ENABLED=0 GOOS=linux go install -ldflags="-w -s" -v github.com/uetchy/gst
 
 # deploy fixtures for test
 RUN ghq get github/gitignore && \
@@ -24,3 +14,14 @@ RUN ghq get github/gitignore && \
     echo "*" > committedfile && \
     git add committedfile && \
     git commit -m 'Add new file'
+
+WORKDIR /go/src/github.com/uetchy/gst
+
+# install deps
+RUN go get github.com/golang/dep/cmd/dep
+COPY Gopkg.toml Gopkg.lock ./
+RUN dep ensure -v -vendor-only
+
+# build gst
+COPY *.go ./
+RUN CGO_ENABLED=0 GOOS=linux go install -ldflags="-w -s" -v github.com/uetchy/gst
