@@ -6,7 +6,7 @@
 
 This tool provides various handy commands over ghq enabled environment.
 
-![](http://randompaper.co.s3.amazonaws.com/gst/gst.gif)
+![](http://uechi.s3.amazonaws.com/github/gst.gif)
 
 ## Usage
 
