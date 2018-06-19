@@ -6,7 +6,7 @@
 
 This tool provides various handy commands over ghq enabled environment.
 
-![](http://uechi.s3.amazonaws.com/github/gst.gif)
+![](http://uechi-public.s3.amazonaws.com/github/gst.gif)
 
 ## Usage
 
