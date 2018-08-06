@@ -6,8 +6,9 @@ go:
   - stable
 script: make test
 before_deploy:
-  - go get -u
   - go get -v github.com/mitchellh/gox
+  - go get -v github.com/golang/dep/cmd/dep
+  - dep ensure -v -vendor-only
   - gox
       -os="linux darwin windows"
       -arch="386 amd64"
