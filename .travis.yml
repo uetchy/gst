@@ -6,6 +6,7 @@ go:
   - stable
 script: make test
 before_deploy:
+  - go get -u
   - go get -v github.com/mitchellh/gox
   - gox
       -os="linux darwin windows"
