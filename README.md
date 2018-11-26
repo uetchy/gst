@@ -10,6 +10,8 @@ This tool provides additional commands (`list`, `new`, `rm`, `doctor`, `update`,
 
 ![](http://uechi-public.s3.amazonaws.com/github/gst.gif)
 
+See [Quick Install](https://github.com/uetchy/gst#quick-install) for the installation guide.
+
 # Usage
 
 ## `gst list` or `gst`
