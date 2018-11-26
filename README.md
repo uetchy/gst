@@ -1,18 +1,20 @@
-# gst
+<div align="center">
+ <h1>gst 👻</h1>
+</div>
 
 [![Build Status](https://travis-ci.org/uetchy/gst.svg)](https://travis-ci.org/uetchy/gst)
 
 **gst** is a auxiliary toolbox for [motemen/ghq](https://github.com/motemen/ghq).
 
-This tool provides various handy commands over ghq enabled environment.
+This tool provides additional commands (`list`, `new`, `rm`, `doctor`, `update`, `fetch`) over ghq enabled environment.
 
 ![](http://uechi-public.s3.amazonaws.com/github/gst.gif)
 
-## Usage
+# Usage
 
-### `gst list` or `gst`
+## `gst list` or `gst`
 
-List uncommitted changes and unpushed commits over all repositories.
+List __uncommitted changes__ and __unpushed commits__ within all repositories.
 
 ```
 $ gst
@@ -40,9 +42,9 @@ You can also use it with `peco` for pipeline processing as:
 cd $(gst --short | peco)
 ```
 
-### new
+## new
 
-Create a git repository.
+Create a new git repository.
 
 Before start using 'new' and 'rm' command, You **must** set 'github.user' to .gitconfig with `git config --global github.user <user>`.
 
@@ -67,18 +69,18 @@ newrepo() {
 }
 ```
 
-### rm
+## rm
 
 Remove a git repository.
 
 ```
-$ gst rm horrible-project
-Remove? /Users/uetchy/Repos/src/github.com/uetchy/horrible-project
+$ gst rm retired-project
+Remove? /Users/uetchy/Repos/src/github.com/uetchy/retired-project
 ```
 
-### doctor
+## doctor
 
-Health-check all repositories.
+Health-check over all repositories.
 
 ```
 $ gst doctor
@@ -87,7 +89,7 @@ $ gst doctor
    Actual:       bitbucket.org/uetchy/scent
 ```
 
-### update
+## update
 
 `git pull` to all repositories.
 
@@ -97,7 +99,7 @@ $ gst update
 Already up-to-date.
 ```
 
-### fetch
+## fetch
 
 `git fetch --tags --prune` to all repositories.
 
@@ -109,7 +111,7 @@ $ gst fetch
  * [new tag]         v1.0.0     -> v1.0.0
 ```
 
-## Quick Install
+# Quick Install
 
 See [releases](https://github.com/uetchy/gst/releases/latest).
 
@@ -127,7 +129,7 @@ curl -L https://github.com/uetchy/gst/releases/download/v4.0.0/gst_linux_amd64 >
 chmod +x /usr/local/bin/gst
 ```
 
-### Pre-release build
+## Pre-release build
 
 macOS:
 
@@ -143,7 +145,7 @@ curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_linux_am
 chmod +x /usr/local/bin/gst
 ```
 
-### Head build
+## Head build
 
 ```
 go get github.com/uetchy/gst
