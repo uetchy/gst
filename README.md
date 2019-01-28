@@ -16,7 +16,7 @@ See [Quick Install](https://github.com/uetchy/gst#quick-install) for the install
 
 ## `gst list` or `gst`
 
-List __uncommitted changes__ and __unpushed commits__ within all repositories.
+List **uncommitted changes** and **unpushed commits** within all repositories.
 
 ```
 $ gst
@@ -152,3 +152,5 @@ chmod +x /usr/local/bin/gst
 ```
 go get github.com/uetchy/gst
 ```
+
+# Development
