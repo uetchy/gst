@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/codegangsta/cli"
-	"github.com/daviddengcn/go-colortext"
+	ct "github.com/daviddengcn/go-colortext"
 	"github.com/dustin/go-humanize"
 )
 

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/daviddengcn/go-colortext"
+	ct "github.com/daviddengcn/go-colortext"
 )
 
 func printWithColor(str string, color ct.Color) {

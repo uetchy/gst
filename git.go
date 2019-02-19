@@ -20,6 +20,7 @@ type GitConfig struct {
 	RemoteOriginURL string `gitconfig:"remote.origin.url"`
 }
 
+// RepositoryNotFoundError is for when repository not found
 type RepositoryNotFoundError struct {
 	TargetPath string
 }
@@ -28,6 +29,7 @@ func (f RepositoryNotFoundError) Error() string {
 	return "Repository not found or moved: " + f.TargetPath
 }
 
+// NoRemoteSpecifiedError is for when no remote specified
 type NoRemoteSpecifiedError struct {
 	TargetPath string
 }
@@ -36,6 +38,7 @@ func (f NoRemoteSpecifiedError) Error() string {
 	return "No remote repository specified: " + f.TargetPath
 }
 
+// NoCommitsError is for when no commits found
 type NoCommitsError struct {
 	TargetPath string
 }
@@ -86,7 +89,7 @@ func GitStatus(targetPath string) ([]string, error) {
 	return statuses[:len(statuses)-1], nil
 }
 
-// git log --branches --not --remotes
+// GitLog is `git log --branches --not --remotes`
 func GitLog(targetPath string) ([]string, error) {
 	if err := os.Chdir(targetPath); err != nil {
 		return nil, err
@@ -97,9 +100,8 @@ func GitLog(targetPath string) ([]string, error) {
 		eout := string(out)
 		if strings.HasPrefix(eout, "does not have any commits yet") {
 			return nil, &NoCommitsError{targetPath}
-		} else {
-			return nil, err
 		}
+		return nil, err
 	}
 
 	if len(out) == 0 {
@@ -111,6 +113,7 @@ func GitLog(targetPath string) ([]string, error) {
 	return statuses, nil
 }
 
+// GitRemoteAdd run `git remote add`
 func GitRemoteAdd(targetPath string, name string, url string) error {
 	if err := os.Chdir(targetPath); err != nil {
 		return err
@@ -124,6 +127,7 @@ func GitRemoteAdd(targetPath string, name string, url string) error {
 	return nil
 }
 
+// GitRemoteSetURL run `git remote set-url`
 func GitRemoteSetURL(targetPath string, name string, url string) error {
 	if err := os.Chdir(targetPath); err != nil {
 		return err
@@ -183,6 +187,7 @@ func GitFetch(targetPath string) (string, error) {
 	return string(out), nil
 }
 
+// GitRemoteLocation returns Location header of remote
 func GitRemoteLocation(targetURL string) (string, error) {
 	resp, err := http.Head(targetURL)
 	if err != nil {
