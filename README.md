@@ -154,3 +154,11 @@ go get github.com/uetchy/gst
 ```
 
 # Development
+
+## Test
+
+Docker is required to run tests.
+
+```bash
+make test
+```

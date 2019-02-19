@@ -14,9 +14,6 @@ RUN echo "*" >committedfile
 RUN git add committedfile
 RUN git commit -m 'Add new file'
 
-RUN git init
-RUN git add .
-
 WORKDIR /go/src/github.com/uetchy/gst
 
 # install deps
