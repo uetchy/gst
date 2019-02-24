@@ -2,9 +2,9 @@
  <h1>gst 👻</h1>
 </div>
 
-[![Build Status](https://travis-ci.org/uetchy/gst.svg)](https://travis-ci.org/uetchy/gst)
+<p align="center"><img src="https://raw.githubusercontent.com/uetchy/gst/master/assets/screen.gif"/></p>
 
-![](https://raw.githubusercontent.com/uetchy/gst/master/assets/screen.gif)
+[![Build Status](https://travis-ci.org/uetchy/gst.svg)](https://travis-ci.org/uetchy/gst)
 
 **gst** is a toolbox for [motemen/ghq](https://github.com/motemen/ghq).
 
