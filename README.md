@@ -153,7 +153,9 @@ chmod +x /usr/local/bin/gst
 go get github.com/uetchy/gst
 ```
 
-# Development
+# Contribution
+
+PRs are welcome.
 
 ## Test
 
@@ -162,3 +164,8 @@ Docker is required to run tests.
 ```bash
 make test
 ```
+
+## Contributors
+
+ - Yasuaki Uechi
+ - NaotoSuzuki
