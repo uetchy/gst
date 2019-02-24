@@ -136,7 +136,7 @@ chmod +x /usr/local/bin/gst
 You can take a glance at what `gst` do by running Docker container, before installing the actual binary.
 
 ```bash
-alias gst="docker run --rm -v \$(ghq root):/ghq -it uetchy/gst --help"
+alias gst="docker run --rm -v \$(ghq root):/ghq -it uetchy/gst"
 gst --help
 gst list
 ```
