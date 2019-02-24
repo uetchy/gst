@@ -4,11 +4,11 @@
 
 [![Build Status](https://travis-ci.org/uetchy/gst.svg)](https://travis-ci.org/uetchy/gst)
 
-**gst** is a auxiliary toolbox for [motemen/ghq](https://github.com/motemen/ghq).
+![](https://raw.githubusercontent.com/uetchy/gst/master/assets/screen.gif)
 
-This tool provides additional commands (`list`, `new`, `rm`, `doctor`, `update`, `fetch`) over ghq enabled environment.
+**gst** is a toolbox for [motemen/ghq](https://github.com/motemen/ghq).
 
-![](http://uechi-public.s3.amazonaws.com/github/gst.gif)
+This tool offers additional commands (`list`, `new`, `rm`, `doctor`, `update`, `fetch`) over ghq enabled environment.
 
 See [Quick Install](https://github.com/uetchy/gst#quick-install) for the installation guide.
 
