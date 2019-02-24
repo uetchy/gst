@@ -6,15 +6,13 @@
 
 [![Build Status](https://travis-ci.org/uetchy/gst.svg)](https://travis-ci.org/uetchy/gst)
 
-**gst** is a toolbox for [motemen/ghq](https://github.com/motemen/ghq).
-
-This tool offers additional commands (`list`, `new`, `rm`, `doctor`, `update`, `fetch`) over ghq enabled environment.
+**gst** is a simple toolbox that offers additional commands (`list`, `new`, `rm`, `doctor`, `update`, `fetch`) over [ghq](https://github.com/motemen/ghq) enabled environment.
 
 See [Quick Install](https://github.com/uetchy/gst#quick-install) for the installation guide.
 
 # Usage
 
-## `gst list` or `gst`
+is## `gst list` or `gst`
 
 List **uncommitted changes** and **unpushed commits** within all repositories.
 
@@ -133,7 +131,7 @@ chmod +x /usr/local/bin/gst
 
 ## Run as Docker container
 
-You can take a glance at what `gst` do by running Docker container, before installing the actual binary.
+You can take a glance at what `gst` do before installing the actual binary, by running the containerized Docker image.
 
 ```bash
 alias gst="docker run --rm -v \$(ghq root):/ghq -it uetchy/gst"
