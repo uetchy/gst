@@ -131,6 +131,16 @@ curl -L https://github.com/uetchy/gst/releases/download/v5.0.1/gst_linux_amd64 >
 chmod +x /usr/local/bin/gst
 ```
 
+## Run as Docker container
+
+You can take a glance at what `gst` do by running Docker container, before installing the actual binary.
+
+```bash
+alias gst="docker run --rm -v \$(ghq root):/ghq -it uetchy/gst --help"
+gst --help
+gst list
+```
+
 ## Pre-release build
 
 macOS:
@@ -167,5 +177,5 @@ make test
 
 ## Contributors
 
- - Yasuaki Uechi
- - NaotoSuzuki
+- Yasuaki Uechi
+- NaotoSuzuki
