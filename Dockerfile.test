@@ -1,4 +1,6 @@
-FROM golang:1.11
+FROM golang:1.12
+
+ENV GO111MODULE on
 
 # install ghq
 RUN go get github.com/motemen/ghq
@@ -15,11 +17,6 @@ RUN git add committedfile
 RUN git commit -m 'Add new file'
 
 WORKDIR /go/src/github.com/uetchy/gst
-
-# install deps
-RUN go get github.com/golang/dep/cmd/dep
-COPY Gopkg.toml Gopkg.lock ./
-RUN dep ensure -v -vendor-only
 
 # build gst
 COPY *.go ./
