@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/Songmu/prompter"
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 )
 
 var commandRemove = cli.Command{

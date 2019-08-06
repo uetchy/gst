@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/Songmu/prompter"
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 )
 
 var commandDoctor = cli.Command{

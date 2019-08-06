@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 	ct "github.com/daviddengcn/go-colortext"
 	"github.com/dustin/go-humanize"
 )

@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/andreyvit/diff"
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 )
 
 const expected = `
