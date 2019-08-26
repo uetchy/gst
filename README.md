@@ -12,7 +12,7 @@ See [Quick Install](https://github.com/uetchy/gst#quick-install) for the install
 
 # Usage
 
-is## `gst list` or `gst`
+## `gst list` or `gst`
 
 List **uncommitted changes** and **unpushed commits** within all repositories.
 
