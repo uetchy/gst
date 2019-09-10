@@ -14,7 +14,7 @@ require (
 	github.com/motemen/go-gitconfig v0.0.0-20160409144229-d53da5028b75
 	github.com/sergi/go-diff v1.0.0 // indirect
 	github.com/stretchr/testify v1.3.0 // indirect
-	github.com/urfave/cli v1.20.0
+	github.com/urfave/cli v1.22.0
 	golang.org/x/crypto v0.0.0-20190313024323-a1f597ede03a // indirect
 	golang.org/x/sys v0.0.0-20190318195719-6c81ef8f67ca // indirect
 )
