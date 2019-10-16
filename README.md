@@ -182,6 +182,7 @@ make test
 <table>
   <tr>
     <td align="center"><a href="https://uechi.io"><img src="https://avatars0.githubusercontent.com/u/431808?v=4" width="100px;" alt="Yasuaki Uechi"/><br /><sub><b>Yasuaki Uechi</b></sub></a><br /><a href="https://github.com/uetchy/gst/commits?author=uetchy" title="Code">💻</a> <a href="https://github.com/uetchy/gst/commits?author=uetchy" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/sinshutu"><img src="https://avatars0.githubusercontent.com/u/7629220?v=4" width="100px;" alt="NaotoSuzuki"/><br /><sub><b>NaotoSuzuki</b></sub></a><br /><a href="https://github.com/uetchy/gst/commits?author=sinshutu" title="Code">💻</a></td>
   </tr>
 </table>
 

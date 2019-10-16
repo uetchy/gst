@@ -19,6 +19,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "sinshutu",
+      "name": "NaotoSuzuki",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/7629220?v=4",
+      "profile": "https://github.com/sinshutu",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
