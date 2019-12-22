@@ -3,6 +3,7 @@
 </div>
 
 <p align="center"><img src="https://raw.githubusercontent.com/uetchy/gst/master/assets/screen.gif"/></p>
+
 [![Build Status](https://travis-ci.com/uetchy/gst.svg)](https://travis-ci.com/uetchy/gst)
 
 **gst** is a simple toolbox that offers additional commands (`list`, `new`, `rm`, `doctor`, `update`, `fetch`) over [ghq](https://github.com/motemen/ghq) enabled environment.
