@@ -1,9 +1,9 @@
-FROM golang:1.13 as BUILD
+FROM golang:1.14 as BUILD
 
 ENV GO111MODULE on
 
 # install ghq
-RUN go get github.com/motemen/ghq
+RUN go get github.com/x-motemen/ghq
 
 # install deps
 WORKDIR /go/src/github.com/uetchy/gst

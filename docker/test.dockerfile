@@ -1,9 +1,9 @@
-FROM golang:1.13
+FROM golang:1.14
 
 ENV GO111MODULE on
 
 # install ghq
-RUN go get github.com/motemen/ghq
+RUN go get github.com/x-motemen/ghq
 COPY test/fixture/gitconfig /root/.gitconfig
 
 # deploy fixtures for test

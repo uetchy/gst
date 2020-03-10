@@ -6,7 +6,7 @@
 
 [![Build Status](https://travis-ci.com/uetchy/gst.svg)](https://travis-ci.com/uetchy/gst)
 
-**gst** is a simple toolbox that offers additional commands (`list`, `new`, `rm`, `doctor`, `update`, `fetch`) over [ghq](https://github.com/motemen/ghq) enabled environment.
+**gst** is a simple toolbox that offers additional commands (`list`, `new`, `rm`, `doctor`, `update`, `fetch`) over [ghq](https://github.com/x-motemen/ghq) enabled environment.
 
 See [Quick Install](https://github.com/uetchy/gst#quick-install) for the installation guide.
 
@@ -175,7 +175,6 @@ make test
 
 ## Contributors
 
-
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -189,4 +188,5 @@ make test
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
