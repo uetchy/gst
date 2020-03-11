@@ -53,7 +53,6 @@ func doRemove(c *cli.Context) error {
 			if e, _ := IsEmpty(target); !e {
 				break
 			}
-			fmt.Println(target, ghqPath)
 			err := os.RemoveAll(target)
 			if err == nil {
 				fmt.Println("Removed: " + target)
