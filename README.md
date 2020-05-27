@@ -118,14 +118,14 @@ See [releases](https://github.com/uetchy/gst/releases/latest).
 macOS:
 
 ```
-curl -L https://github.com/uetchy/gst/releases/download/v5.0.1/gst_darwin_amd64 > /usr/local/bin/gst
+curl -L https://github.com/uetchy/gst/releases/download/v5.0.3/gst_darwin_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
 Linux:
 
 ```
-curl -L https://github.com/uetchy/gst/releases/download/v5.0.1/gst_linux_amd64 > /usr/local/bin/gst
+curl -L https://github.com/uetchy/gst/releases/download/v5.0.3/gst_linux_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
