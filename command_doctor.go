@@ -15,7 +15,7 @@ var commandDoctor = cli.Command{
 	Action: doDoctor,
 	Flags: []cli.Flag{
 		cli.BoolFlag{
-			Name:  "f, fix",
+			Name:  "fix",
 			Usage: "automatically fix issues",
 		},
 	},
