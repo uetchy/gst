@@ -165,6 +165,11 @@ go get github.com/uetchy/gst
 
 PRs are welcome.
 
+```bash
+go build
+./gst
+```
+
 ### Test
 
 Docker is required to run tests.
