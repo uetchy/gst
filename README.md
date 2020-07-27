@@ -36,7 +36,7 @@ $ gst --short
 /Users/uetchy/Repos/src/github.com/uetchy/gst
 ```
 
-You can also use it with `peco` for pipeline processing as:
+You can also use it with `peco`:
 
 ```
 cd $(gst --short | peco)
@@ -46,7 +46,7 @@ cd $(gst --short | peco)
 
 Create a new git repository.
 
-Before start using 'new' and 'rm' command, You **must** set 'github.user' to .gitconfig with `git config --global github.user <user>`.
+Before start using 'new' and 'rm' command, You **must** set 'github.user' to .gitconfig: `git config --global github.user <user>`.
 
 ```
 $ gst new epic-project
@@ -55,13 +55,13 @@ $ gst new epic-team/epic-project
 /Users/uetchy/Repos/src/github.com/epic-team/epic-project
 ```
 
-with `cd`, You can jump to created project:
+with `cd`, You can jump to the created project:
 
 ```
-$ cd $(gst new epic-project)
+cd $(gst new epic-project)
 ```
 
-or with declare function:
+It's good for having an alias for this workflow:
 
 ```zsh
 newrepo() {
@@ -71,11 +71,13 @@ newrepo() {
 
 ### rm
 
-Remove a git repository.
+Remove a git repository. It also removes the containing directory if the deleted repository was the sole repository the parent directory has.
 
-```
-$ gst rm retired-project
-Remove? /Users/uetchy/Repos/src/github.com/uetchy/retired-project
+```bash
+$ gst rm retired-project`
+Remove? /Users/uetchy/Repos/src/github.com/uetchy/retired-project [Y/n]
+Removed /Users/uetchy/Repos/src/github.com/uetchy/retired-project
+Removed /Users/uetchy/Repos/src/github.com/uetchy
 ```
 
 ### doctor
