@@ -3,7 +3,7 @@ module github.com/uetchy/gst
 go 1.12
 
 require (
-	github.com/Songmu/prompter v0.3.0
+	github.com/Songmu/prompter v0.4.0
 	github.com/andreyvit/diff v0.0.0-20170406064948-c7f18ee00883
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/daviddengcn/go-colortext v0.0.0-20180409174941-186a3d44e920
