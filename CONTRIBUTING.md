@@ -10,5 +10,10 @@ go build
 ## Release Guide (Maintainers only)
 
 ```bash
-np
+VERSION=vX.X.X
+make readme
+git add .
+git commit -m "chore: release ${VERSION}"
+git tag -a "$VERSION" $VERSION
+git push
 ```
