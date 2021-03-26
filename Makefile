@@ -2,10 +2,10 @@ build:
 	docker build -f docker/build.dockerfile -t uetchy/gst .
 
 readme:
-	npx mdmod README.md --args.version $VERSION
+	npx mdmod README.md --define.version $$(git describe --tags --match 'v*' --abbrev=0)
 
 run: build
-	docker run --rm -v $(ghq root):/ghq -it uetchy/gst --help
+	docker run --rm -v $$(ghq root):/ghq -it uetchy/gst --help
 
 push: build
 	docker push uetchy/gst

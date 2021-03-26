@@ -117,19 +117,19 @@ $ gst fetch
 
 See [releases](https://github.com/uetchy/gst/releases/latest).
 
-<!-- START mdmod {match: /v\d\.\d\.\d/g, replace: () => version} -->
+<!-- START mdmod {match: /v\d+?\.\d+?\.\d+?/g, replace: () => version} -->
 
 macOS:
 
 ```
-curl -L https://github.com/uetchy/gst/releases/download/v5.0.3-6-g23dcf3e/gst_darwin_amd64 > /usr/local/bin/gst
+curl -L https://github.com/uetchy/gst/releases/download/v5.0.3/gst_darwin_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
 Linux:
 
 ```
-curl -L https://github.com/uetchy/gst/releases/download/v5.0.3-6-g23dcf3e/gst_linux_amd64 > /usr/local/bin/gst
+curl -L https://github.com/uetchy/gst/releases/download/v5.0.3/gst_linux_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
