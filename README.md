@@ -5,6 +5,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/uetchy/gst/master/assets/screen.gif"/></p>
 
 [![Actions Status: release](https://github.com/uetchy/gst/workflows/goreleaser/badge.svg)](https://github.com/uetchy/gst/actions?query=goreleaser)
+[![sake.sh badge](https://sake.sh/uetchy/badge.svg)](https://sake.sh/uetchy)
 
 **gst** is a simple toolbox that offers additional commands (`list`, `new`, `rm`, `doctor`, `update`, `fetch`) over [ghq](https://github.com/x-motemen/ghq) enabled environment.
 
