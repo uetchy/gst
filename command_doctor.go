@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"strings"
@@ -33,27 +34,14 @@ func doDoctor(c *cli.Context) error {
 		trimmedLocal := strings.TrimPrefix(repo.Path, ghqPath+"/")
 
 		if remoteOriginURL == "" {
-			fmt.Println("===> 'remote.origin.url' does not exist in", trimmedLocal)
-			if fixupIssues {
-				okToChange := prompter.YN("===> Add "+trimmedLocal+" to 'remote.origin' ?", true)
-				if okToChange {
-					slp := strings.Split(trimmedLocal, "/")
-					remotePathFromLocal := fmt.Sprintf("git@%s:%s/%s.git", slp[0], slp[1], slp[2])
-					fmt.Println(remotePathFromLocal)
-					err := GitRemoteAdd(repo.Path, "origin", remotePathFromLocal)
-					if err != nil {
-						fmt.Println("===> Fix failed because of", err)
-					} else {
-						fmt.Println("===> Add", remotePathFromLocal, "to", repo.Path)
-					}
-				} else {
-					fmt.Println()
-				}
-			}
-		} else if trimmedRemote != trimmedLocal && !strings.Contains(trimmedLocal, "golang.org/x/") {
+			continue
+		}
+
+		if trimmedRemote != trimmedLocal && !strings.Contains(trimmedLocal, "golang.org/x/") {
 			fmt.Println("===> 'remote.origin.url' has been changed")
 			fmt.Println("===> local ", trimmedLocal)
 			fmt.Println("===> remote", trimmedRemote)
+
 			if fixupIssues {
 				fmt.Println("===> Choose the right location for" + trimmedLocal)
 				fmt.Println("[1] " + trimmedLocal)
@@ -72,17 +60,21 @@ func doDoctor(c *cli.Context) error {
 				} else {
 					// Move directory
 					localPathFromRemote := filepath.Join(ghqPath, trimmedRemote)
+
 					fmt.Println(localPathFromRemote)
 					if _, err := os.Stat(localPathFromRemote); os.IsExist(err) {
-						fmt.Println("===> Fix failed because", localPathFromRemote, "already exist")
+						fmt.Println("===> Failed to move repository because", localPathFromRemote, "already exist")
 						continue
 					}
 
+					os.MkdirAll(filepath.Dir(localPathFromRemote), fs.ModeDir)
+
 					if err := os.Rename(repo.Path, localPathFromRemote); err != nil {
-						fmt.Println("===> Fix failed because of", err)
+						fmt.Println("===> Failed to move repository because of", err)
 						continue
 					}
-					fmt.Println("===> Move repository from", repo.Path, "to", localPathFromRemote)
+
+					fmt.Println("===> Moved repository from", repo.Path, "to", localPathFromRemote)
 				}
 			}
 		}
