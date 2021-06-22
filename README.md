@@ -4,7 +4,7 @@
 
 <p align="center"><img src="https://raw.githubusercontent.com/uetchy/gst/master/assets/screen.gif"/></p>
 
-[![Build Status](https://travis-ci.com/uetchy/gst.svg)](https://travis-ci.com/uetchy/gst)
+[![Actions Status: release](https://github.com/uetchy/gst/workflows/goreleaser/badge.svg)](https://github.com/uetchy/gst/actions?query=goreleaser)
 
 **gst** is a simple toolbox that offers additional commands (`list`, `new`, `rm`, `doctor`, `update`, `fetch`) over [ghq](https://github.com/x-motemen/ghq) enabled environment.
 
@@ -16,7 +16,7 @@ See [Quick Install](https://github.com/uetchy/gst#quick-install) for the install
 
 List **uncommitted changes** and **unpushed commits** within all repositories.
 
-```
+```bash
 $ gst
 /Users/uetchy/Repos/src/github.com/uetchy/gst (11 minutes ago)
 uncommitted changes
@@ -30,7 +30,7 @@ unpushed commits
 
 with **--short** option:
 
-```
+```bash
 $ gst --short
 /Users/uetchy/Repos/src/github.com/uetchy/ferret
 /Users/uetchy/Repos/src/github.com/uetchy/gst
@@ -38,7 +38,7 @@ $ gst --short
 
 You can also use it with `peco`:
 
-```
+```bash
 cd $(gst --short | peco)
 ```
 
@@ -48,7 +48,7 @@ Create a new git repository.
 
 Before start using 'new' and 'rm' command, You **must** set 'github.user' to .gitconfig: `git config --global github.user <user>`.
 
-```
+```bash
 $ gst new epic-project
 /Users/uetchy/Repos/src/github.com/uetchy/epic-project
 $ gst new epic-team/epic-project
@@ -57,13 +57,13 @@ $ gst new epic-team/epic-project
 
 with `cd`, You can jump to the created project:
 
-```
+```bash
 cd $(gst new epic-project)
 ```
 
 It's good for having an alias for this workflow:
 
-```zsh
+```bash
 newrepo() {
   cd $(gst new ${1})
 }
@@ -84,7 +84,7 @@ Removed /Users/uetchy/Repos/src/github.com/uetchy
 
 Health-check over all repositories.
 
-```
+```bash
 $ gst doctor
 [bitbucket.org/uetchy/scent] git remote origin has changed:
    Expected:   github.com/uetchy/google-cloud-vision-raspi-sample
@@ -95,7 +95,7 @@ $ gst doctor
 
 `git pull` to all repositories.
 
-```
+```bash
 $ gst update
 /Users/uetchy/Repos/src/github.com/uetchy/gst
 Already up-to-date.
@@ -105,7 +105,7 @@ Already up-to-date.
 
 `git fetch --tags --prune` to all repositories.
 
-```
+```bash
 $ gst fetch
 /Users/uetchy/Repos/src/github.com/uetchy/gst
  * [new branch]      dev        -> origin/dev
@@ -121,14 +121,14 @@ See [releases](https://github.com/uetchy/gst/releases/latest).
 
 macOS:
 
-```
-curl -L https://github.com/uetchy/gst/releases/download/v5.0.3/gst_darwin_amd64 > /usr/local/bin/gst
-chmod +x /usr/local/bin/gst
+```bash
+brew tap sake.sh/uetchy https://sake.sh/uetchy
+brew install gst
 ```
 
 Linux:
 
-```
+```bash
 curl -L https://github.com/uetchy/gst/releases/download/v5.0.3/gst_linux_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
@@ -149,21 +149,21 @@ gst list
 
 macOS:
 
-```
+```bash
 curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_darwin_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
 Linux:
 
-```
+```bash
 curl -L https://github.com/uetchy/gst/releases/download/pre-release/gst_linux_amd64 > /usr/local/bin/gst
 chmod +x /usr/local/bin/gst
 ```
 
 ### Head build
 
-```
+```bash
 go get github.com/uetchy/gst
 ```
 
