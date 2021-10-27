@@ -5,15 +5,15 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/urfave/cli"
 	ct "github.com/daviddengcn/go-colortext"
 	"github.com/dustin/go-humanize"
+	"github.com/urfave/cli"
 )
 
 var flagsOfList = []cli.Flag{
 	cli.BoolFlag{
 		Name:  "short, s",
-		Usage: "shorten result for pipeline processing",
+		Usage: "only prints path strings",
 	},
 }
 
@@ -24,6 +24,10 @@ var commandList = cli.Command{
 }
 
 func doList(c *cli.Context) error {
+	if c.Args().Present() {
+		cli.ShowAppHelpAndExit(c, 0)
+	}
+
 	ghqPath := verifyGhqPath()
 	reposChannel := searchForRepos(ghqPath)
 
