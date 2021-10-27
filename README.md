@@ -7,7 +7,7 @@
 [![Actions Status: release](https://github.com/uetchy/gst/workflows/goreleaser/badge.svg)](https://github.com/uetchy/gst/actions?query=goreleaser)
 [![sake.sh badge](https://sake.sh/uetchy/badge.svg)](https://sake.sh/uetchy)
 
-**gst** is a simple toolbox that offers additional commands (`list`, `new`, `rm`, `doctor`, `update`, `fetch`) over [ghq](https://github.com/x-motemen/ghq) enabled environment.
+**gst** is a simple toolbox that offers additional commands (`list`, `new`, `rm`, `doctor`, `update`, `fetch`) for [ghq](https://github.com/x-motemen/ghq).
 
 See [Quick Install](https://github.com/uetchy/gst#quick-install) for the installation guide.
 
@@ -29,7 +29,7 @@ unpushed commits
 409849d returns Promise.reject
 ```
 
-with **--short** option:
+with `--short` or `-s` option:
 
 ```bash
 $ gst --short
@@ -37,17 +37,11 @@ $ gst --short
 /Users/uetchy/Repos/src/github.com/uetchy/gst
 ```
 
-You can also use it with `peco`:
-
-```bash
-cd $(gst --short | peco)
-```
-
 ### new
 
 Create a new git repository.
 
-Before start using 'new' and 'rm' command, You **must** set 'github.user' to .gitconfig: `git config --global github.user <user>`.
+Before start using `new` and `rm` command, You **must** set `github.user` in gitconfig to your GitHub username: `git config --global github.user <user>`.
 
 ```bash
 $ gst new epic-project
@@ -56,13 +50,13 @@ $ gst new epic-team/epic-project
 /Users/uetchy/Repos/src/github.com/epic-team/epic-project
 ```
 
-with `cd`, You can jump to the created project:
+With `cd`, you can jump to the created project quickly:
 
 ```bash
 cd $(gst new epic-project)
 ```
 
-It's good for having an alias for this workflow:
+It's also good for having a handy alias for this workflow:
 
 ```bash
 newrepo() {
@@ -72,10 +66,10 @@ newrepo() {
 
 ### rm
 
-Remove a git repository. It also removes the containing directory if the deleted repository was the sole repository the parent directory has.
+Remove a git repository. It also removes the containing directory if the deleted repository was the sole repository the parent directory had.
 
 ```bash
-$ gst rm retired-project`
+$ gst rm retired-project
 Remove? /Users/uetchy/Repos/src/github.com/uetchy/retired-project [Y/n]
 Removed /Users/uetchy/Repos/src/github.com/uetchy/retired-project
 Removed /Users/uetchy/Repos/src/github.com/uetchy
@@ -138,7 +132,7 @@ chmod +x /usr/local/bin/gst
 
 ### Run as Docker container
 
-You can take a glance at what `gst` do before installing the actual binary, by running the containerized Docker image.
+You can take a glance at what `gst` do before installing the actual binary by running the containerized Docker image.
 
 ```bash
 alias gst="docker run --rm -v \$(ghq root):/ghq -it uetchy/gst"
