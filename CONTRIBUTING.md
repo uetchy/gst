@@ -11,7 +11,7 @@ go build
 
 ```bash
 VERSION=vX.X.X
-make readme
+npx mdmod README.md --define.version $VERSION
 git add .
 git commit -m "chore: release ${VERSION}"
 git tag -a "$VERSION" $VERSION
